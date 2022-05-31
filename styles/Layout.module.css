@@ -1,0 +1,18 @@
+.layout { 
+    height: 100vh;
+    background: var(--clr-main);
+}
+
+.border {
+    height: calc(100% - 2px);
+    border: 2px solid var(--clr-tertiary);
+    z-index: -1;
+}
+
+.border::after {
+    height: 100%;
+    transform: scale(.98, .98);
+    content: "";
+    display: block;
+    border: 2px solid var(--clr-tertiary);
+}
