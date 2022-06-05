@@ -28,10 +28,7 @@
   padding: 0.5rem;
 }
 
-.container {
-  max-width: 80vw;
-  margin: 0 auto;
-}
+
 
 /* components classes */
 
@@ -92,4 +89,8 @@
 }
 .ts-3 {
   font-size: 1rem;
+}
+
+.t-center {
+  text-align: center;
 }

@@ -1,4 +1,6 @@
 <?php
+
+// kết nối với database
 function pdo_connect()
 {
     $dburl = "mysql:host=localhost;dbname=xshop;charset=utf8";
@@ -16,42 +18,28 @@ function pdo_connect()
     }
 }
 
+// thực thi câu lệnh sql
 function pdo_execute($sql)
 {
     $sql_vals = array_slice(func_get_args(), 1);
-
+    print_r($sql_vals);
     try {
         $pdo = pdo_connect();
         $stmt = $pdo->prepare($sql);
-        $stmt->execute($sql_vals);
-
-        return $stmt;
+        $stmt->execute(...$sql_vals);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
     } catch (PDOException $e) {
-        throw "Execution failed: " . $e->getMessage();
-    } finally {
-        $pdo = null;
-    }
-}
-function pdo_prepare($sql)
-{
-    $pdo = pdo_connect();
-    return $pdo->prepare($sql);
-}
-function pdo_exec_m($sql)
-{
-    $sql_vals = array_slice(func_get_args(), 1);
-    try {
-        $stmt = pdo_prepare($sql);
-        $stmt->execute($sql_vals);
-        return $stmt;
-    } catch (PDOException $e) {
-        throw "Execution failed: " . $e->getMessage();
+        echo "<br>" . "Execution failed: " . $e->getMessage();
     } finally {
         $pdo = null;
     }
 }
 
+// minified version of pdo_execute
+function pdo_exec($a) { try { $b=pdo_connect();$c=$b->prepare($a);$c->execute(...array_slice(func_get_args(),1));$d=$c->fetch(PDO::FETCH_ASSOC);return $d; } catch (PDOException $e) { echo "<br>Execution failed: {$e->getMessage()}"; } finally { $pdo=null; } }
 
+// lấy dữ liệu
 function pdo_query($sql, $params = null)
 {
     $pdo = pdo_connect();
@@ -60,7 +48,7 @@ function pdo_query($sql, $params = null)
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         return $rows;
     } catch (PDOException $e) {
         throw "Query failed: " . $e->getMessage();
@@ -69,6 +57,7 @@ function pdo_query($sql, $params = null)
     }
 }
 
+// lấy dữ liệu một hàng
 function pdo_query_once($sql, $params = null)
 {
     $pdo = pdo_connect();
@@ -76,8 +65,8 @@ function pdo_query_once($sql, $params = null)
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
         return $result;
     } catch (PDOException $e) {
         throw "Query failed: " . $e->getMessage();

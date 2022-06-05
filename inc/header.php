@@ -23,9 +23,8 @@
 <body>
     <div id="wrapper">
         <div id="header">
-            <!-- tailwind nav -->
             <nav class="nav">
-                <div class="container mx-auto grid nav__container pos-r my-2">
+                <div class="mx-auto grid nav__container pos-r my-2">
                     <a href="#" class="nav__logo block">
                         <img src="./public/img/logo.png" class="img-fluid" alt="Xshop Logo" />
                     </a>
@@ -37,16 +36,13 @@
                             <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-2">
                                 <ul class="nav__list">
                                     <li class="nav__item">
-                                        <a href="#" class="nav__link nav__link--main block">Trang Chủ</a>
+                                        <a href="#" class="nav__link nav__link--main block">Quên mật khẩu</a>
                                     </li>
                                     <li class="nav__item">
-                                        <a href="#" class="nav__link nav__link--main block">Hỏi Đáp</a>
+                                        <a href="#" class="nav__link nav__link--main block">Đăng ký tài khoản</a>
                                     </li>
-                                    <li class="nav__item">
-                                        <a href="#" class="nav__link nav__link--main block">Giới Thiệu</a>
-                                    </li>
-                                    <li class="nav__item">
-                                        <a href="#" class="nav__link nav__link--main block">Liên Hệ</a>
+                                    <li class="nav__item t-center">
+                                        <a href="#" class="nav__link nav__link--main block theme--dark">Đăng nhập</a>
                                     </li>
                                 </ul>
                             </div>

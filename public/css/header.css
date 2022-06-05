@@ -13,6 +13,7 @@
 .nav__container {
   grid-template-columns: 1fr 1fr;
   align-items: center;
+  width: 85vw;
 }
 
 .nav__dropdown {
@@ -24,8 +25,8 @@
   position: absolute;
   top: 4rem;
   transform: translateX(calc(-50% + 1.5rem));
-  /* menu shadow */
-  box-shadow: 0 0.5rem 0.5rem var(--line);
+  
+  box-shadow: 0 0.5rem 1rem var(--line);
 
   width: var(--width);
   font-family: var(--font-main);
