@@ -1,23 +1,69 @@
-
-.bg-primary {
-  background-color: var(--primary);
+.nav {
+  padding-top: 1rem;
 }
 
 .nav__logo {
-  width: clamp(100px,calc(min(100vw, 100vh) * 0.3), 15vw);
+  width: clamp(100px, calc(min(100vw, 100vh) * 0.3), 15vw);
+  justify-self: start;
+}
+.nav__menu {
+  justify-self: end;
+  gap: 1rem;
+}
+.nav__container {
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
 }
 
 .nav__dropdown {
+  --width: 13rem;
+  /* di chuyển menu sang bên trái nav */
+  grid-column: 2;
+
+  /* căn menu ra giữa icon */
+  position: absolute;
+  top: 4rem;
+  transform: translateX(calc(-50% + 1.5rem));
+  /* menu shadow */
+  box-shadow: 0 0.5rem 0.5rem var(--line);
+
+  width: var(--width);
+  font-family: var(--font-main);
+  font-weight: 600;
+  background: white;
+}
+
+.nav__link {
+  padding: 0.75rem;
+}
+
+.nav__item:not(:last-child) .nav__link {
+  border-bottom: 0.5px solid var(--line);
+}
+
+.nav__link--main:hover {
+  color: white;
+  background: var(--primary-500);
+}
+
+.fadeIn {
   animation: fadeIn 0.5s ease-in;
-   
+}
+
+.nav__btn__icon {
+  font-size: 1.5rem;
+  color: var(--primary);
+  /* sửa lỗi bug event.nextElementSibling trả về null */
+  pointer-events: none;
 }
 
 @keyframes fadeIn {
-  from {
+  0% {
     opacity: 0;
+    top: 2rem;
   }
-  to {
+  100% {
     opacity: 1;
+    top: 4rem;
   }
-
 }

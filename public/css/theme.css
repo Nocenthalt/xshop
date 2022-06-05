@@ -1,12 +1,51 @@
-:root {
-    --primary-h: 203;
-    --primary-s: 40%;
-    --primary-l: 67%;
-    --shift: 15%;
+/* bad practice */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-    --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
-    --primary-100: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - var(--shift) * 2));
-    --primary-300: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - var(--shift)));
-    --primary-500: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + var(--shift)));
-    --primary-700: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + var(--shift) * 2));
+:root {
+  --primary-h: 203;
+  --primary-s: 40%;
+  --primary-l: 67%;
+  --light: 15%;
+
+  --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --primary-100: hsl(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) - var(--light) * 2)
+  );
+  --primary-300: hsl(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) - var(--light))
+  );
+  --primary-500: hsl(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) + var(--light))
+  );
+  --primary-700: hsl(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) + var(--light) * 2)
+  );
+
+  --line: #c4c4c440;
+  --font-main: "Montserrat", sans-serif;
+}
+
+.btn--primary-o,.btn--primary-a:hover {
+  border: 1px solid var(--primary);
+}
+
+.btn--primary-0:hover,
+.btn--primary-a:active,
+.btn--primary {
+  background: var(--primary);
+  color: white;
+}
+
+
+.theme--primary {
+  background-color: var(--primary);
+  color: #fff;
 }
