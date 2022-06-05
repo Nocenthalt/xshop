@@ -14,22 +14,21 @@
     <link rel="stylesheet" type="text/css" href="./public/css/util.css" />
     <link rel="stylesheet" type="text/css" href="./public/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="./public/css/header.css" />
-    <!-- không nên dùng tailwind trong giai đoạn production -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" type="text/css" href="./public/css/footer.css" />
     <script src="https://kit.fontawesome.com/33c0badbf8.js" crossorigin="anonymous"></script>
     <script src="./public/js/header.js"></script>
 </head>
 
 <body>
     <div id="wrapper">
-        <div id="header">
+        <header id="header">
             <nav class="nav">
                 <div class="mx-auto grid nav__container pos-r my-2">
                     <a href="#" class="nav__logo block">
                         <img src="./public/img/logo.png" class="img-fluid" alt="Xshop Logo" />
                     </a>
                     <div class="nav__menu flex">
-                    <div class="wrapper">
+                        <div class="wrapper">
                             <button data-collapse-toggle="mobile-menu" type="button" class="nav__btn btn btn--primary-a" aria-controls="mobile-menu" aria-expanded="false">
                                 <i class="fas fa-user nav__btn__icon"></i>
                             </button>
@@ -71,5 +70,5 @@
                     </div>
                 </div>
             </nav>
-        </div>
+        </header>
         <!--End_header-->

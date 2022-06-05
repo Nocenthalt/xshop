@@ -5,7 +5,7 @@ require 'pdo.php';
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
+    $_SESSION['page'] = 'home';
 }
 // get current user info
-$info = pdo_exec("SELECT * FROM users WHERE usesrname = ?", ["pjanse7"]);
-print_r($info);
+$info = pdo_exec("SELECT * FROM users WHERE username = ?", ["pjanse7"]);
