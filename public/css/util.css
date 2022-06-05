@@ -1,0 +1,47 @@
+
+/* flex class  */
+
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-inline {
+  display: inline-flex;
+}
+
+.px {
+  padding: 0.25rem;
+}
+
+.px-2 {
+  padding: 0.5rem;
+}
+
+.container {
+  max-width: 80vw;
+  margin: 0 auto;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.btn {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn--primary {
+  background-color: var(--primary);
+  color: #fff;
+}
