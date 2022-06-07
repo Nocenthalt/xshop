@@ -21,12 +21,12 @@ function pdo_connect()
 function pdo_execute($sql)
 {
     $sql_vals = array_slice(func_get_args(), 1);
-    print_r($sql_vals);
     try {
         $pdo = pdo_connect();
         $stmt = $pdo->prepare($sql);
         $stmt->execute(...$sql_vals);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
         return $result;
     } catch (PDOException $e) {
         echo "<br>" . "Execution failed: " . $e->getMessage();
@@ -50,7 +50,7 @@ function pdo_query($sql, $params = null)
 
         return $rows;
     } catch (PDOException $e) {
-        throw "Query failed: " . $e->getMessage();
+        echo "<br>" . "Query failed: " . $e->getMessage();
     } finally {
         $pdo = null;
     }

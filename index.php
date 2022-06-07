@@ -1,5 +1,6 @@
 <?php
 require 'template.php';
+require 'dao/pdo.php';
 require 'dao/session.php';
 get_header();
 ?>

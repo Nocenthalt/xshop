@@ -1,5 +1,4 @@
 <?php
-require 'pdo.php';
 
 // new session
 

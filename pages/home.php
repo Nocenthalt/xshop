@@ -1,13 +1,12 @@
 <?php
-$top_4_prods_sql = 'SELECT * FROM `product` ORDER BY `view` DESC LIMIT 4';
-$top_4_prods = pdo_query($top_4_prods_sql);
+require './dao/product.php';
 
-// get 12 products 
-$main_prods_sql = 'SELECT * FROM `product` LIMIT 12';
-$main_prods = pdo_query($main_prods_sql);
+$top_4_prods = get_product(null, 'view', 4);
+$total_prods_count = get_product_count();
+$category_id = $_POST['category'] ??'all';
+$main_prods = $category_id == 'all' ? get_product(null, null, 12) : get_product($category_id, null, 12); 
+$categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
 
-$categories = pdo_query('SELECT * FROM `category`');
-print_r($categories);
 
 ?>
 <div class="container">
@@ -63,6 +62,39 @@ print_r($categories);
     <main class="main-container">
         <div class="row grid mx-auto">
             <section class="col">
+                <!-- category list -->
+                <div class="category">
+                    <h2 class="title">Danh mục</h2>
+                </div>
+                <form action="" method="POST" class="category-list">
+                    <!-- dùng form radio làm danh sách danh mục -->
+                   <div class='form-check'>
+                        <input 
+                            class='form-check-input' 
+                            type='radio' 
+                            name='category' 
+                            id='all' 
+                            value='all' 
+                            onclick='javascript: submit()' 
+                            <?php echo $category_id == 'all' ? "checked" : ""; ?>
+                            >
+                        <label class='form-check-label' for='all'>Tất cả - <span><?=$total_prods_count?></span></label>
+                    </div>
+                    <?php foreach ($categories as $category) { ?>
+                        <div class='form-check'>
+                            <input 
+                                class='form-check-input' 
+                                type='radio' 
+                                name='category' 
+                                id=<?=$category['id']?> 
+                                value=<?=$category['id']?> 
+                                onclick='javascript: submit()' 
+                                <?php echo $category_id == $category['id'] ? "checked" : ""; ?>
+                            >
+                            <label class='form-check-label' for=<?=$category['id']?> ><?=$category['name']?> - <span><?= $category['count'] ?></span></label>
+                        </div>
+                        <?php } ?>
+                </form>
             </section>
             <section class="col">
                 <div class="prod-showcase grid">

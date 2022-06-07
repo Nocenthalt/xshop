@@ -142,8 +142,11 @@
   }
 }
 
+.main-container {
+  margin: 10em 0;
+}
 .main-container > .row {
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 3fr 7fr;
   max-width: 90vw;
 }
 
@@ -152,7 +155,6 @@
   grid-auto-rows: minmax(250pxpx, 300px);
   position: relative;
   row-gap: 2.5rem;
-  margin: 10rem;
 }
 
 .prod-item {
@@ -227,11 +229,52 @@
 }
 
 .prod-item__price::before {
-  content: "₩";
+  content: "$";
 }
 
 .prod-link:hover .prod-item__name {
   color: white;
   background: var(--primary);
   transition: all 0.2s ease-in-out;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-family: var(--font-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* category block */
+.form-check-input[type="radio"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0;
+}
+
+.form-check-label {
+  display: inline-block;
+  cursor: pointer;
+  margin: .75rem 0;
+  color: #c4c4c4;
+  font-family: var(--font-main);
+  font-size: 1rem;
+}
+
+.form-check-input[type="radio"]:checked + .form-check-label {
+  color: black;
+  font-weight: bold;
+}
+
+.form-check-label::before {
+  content: "◆";
+  display: inline block;
+  width: inherit;
+  height: inherit;
+  padding: 0.5em;
 }
