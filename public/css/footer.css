@@ -1,9 +1,11 @@
 footer {
-  clear: both;
+  height: 25vh;
   position: relative;
-  height: 24vh;
-  margin-top: -24vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
+
 
 .footer__media,
 .footer__nav {
@@ -32,7 +34,7 @@ footer {
 .footer__divider {
   height: 1px;
   background-color: var(--line);
-  margin: 2rem auto;
+  margin: 2rem auto 1rem auto;
   max-width: 95%;
 }
 

@@ -32,6 +32,7 @@
   font-family: var(--font-main);
   font-weight: 600;
   background: white;
+  z-index: 10;
 }
 
 .nav__link {

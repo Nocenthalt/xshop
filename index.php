@@ -8,9 +8,12 @@ $page = $_GET['page'] ?? $_SESSION['page'];
 $path = "pages/{$page}.php";
 if (file_exists($path)) {
 ?>
-    <style> <?php include "./public/css/{$page}.css" ?></style>
+    <!-- css -->
+    <style><?php include "./public/css/{$page}.css" ?></style>
+    <!-- js -->
+    <script src="./public/js/<?php echo $page ?>.js"></script>
 <?php
- require $path;
+    require $path;
 } else {
     echo "không tồn tại trang này";
 }
