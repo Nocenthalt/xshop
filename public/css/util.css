@@ -49,6 +49,13 @@
   border: 1px solid transparent;
 }
 
+.divider {
+  width: 100%;
+  height: 0.5px;
+  background: var(--line-500);
+  margin: 1rem 0;
+}
+
 .m-1 {
   margin: 0.25rem;
 }
@@ -89,7 +96,7 @@
 }
 
 .border {
-  border: 0.5px solid var(--line);
+  border: 0.5px solid var(--line-500);
 }
 
 .ts-1 {

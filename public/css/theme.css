@@ -30,6 +30,7 @@
   );
 
   --line: #c4c4c440;
+  --line-500: #c4c4c4;
   --font-main: "Montserrat", sans-serif;
   --font-secondary: "Fira Sans", sans-serif;
 }

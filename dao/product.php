@@ -1,14 +1,14 @@
 <?php
 
-function get_product($cat_id, $cond, $limit)
+function get_product($limit = null, $cat_id = null, $order = null)
 {
     $sql = "SELECT * FROM `product`";
 
     if ($cat_id) {
-        $sql .= " WHERE `category_id` = {$cat_id}";
+        $sql .=  " WHERE `category_id` = {$cat_id}";
     }
-    if ($cond) {
-        $sql .= " ORDER BY `$cond` DESC";
+    if ($order) {
+        $sql .= " ORDER BY `$order` DESC";
     }
     if ($limit) {
         $sql .= " LIMIT $limit";
