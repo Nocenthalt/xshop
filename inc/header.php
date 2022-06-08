@@ -9,14 +9,14 @@
     <meta name="author" content="X-shop">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="./public/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="./public/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="./public/css/util.css" />
-    <link rel="stylesheet" type="text/css" href="./public/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="./public/css/header.css" />
-    <link rel="stylesheet" type="text/css" href="./public/css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="./content/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./content/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./content/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="./content/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="./content/css/header.css" />
+    <link rel="stylesheet" type="text/css" href="./content/css/footer.css" />
     <script src="https://kit.fontawesome.com/33c0badbf8.js" crossorigin="anonymous"></script>
-    <script src="./public/js/header.js"></script>
+    <script src="./content/js/header.js"></script>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
             <nav class="nav">
                 <div class="mx-auto grid nav__container pos-r my-2">
                     <a href="#" class="nav__logo block">
-                        <img src="./public/img/logo.png" class="img-fluid" alt="Xshop Logo" />
+                        <img src="./content/img/logo.png" class="img-fluid" alt="Xshop Logo" />
                     </a>
                     <div class="nav__menu flex">
                         <div class="wrapper">

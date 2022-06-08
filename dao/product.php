@@ -25,3 +25,5 @@ function get_product_count()
 
     return $data[0]['count'];
 }
+
+?>

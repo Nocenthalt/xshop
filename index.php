@@ -1,18 +1,18 @@
 <?php
-require 'template.php';
+require 'global.php';
 require 'dao/pdo.php';
 require 'dao/session.php';
 get_header();
 ?>
 <?php
 $page = $_GET['page'] ?? $_SESSION['page'];
-$path = "pages/{$page}.php";
+$path = "site/{$page}.php";
 if (file_exists($path)) {
 ?>
     <!-- css -->
-    <style><?php include "./public/css/{$page}.css" ?></style>
+    <style><?php include "./content/css/{$page}.css" ?></style>
     <!-- js -->
-    <script src="./public/js/<?php echo $page ?>.js"></script>
+    <script src="./content/js/<?php echo $page ?>.js"></script>
 <?php
     require $path;
 } else {

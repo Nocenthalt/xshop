@@ -1,12 +1,14 @@
 <?php
 require './dao/product.php';
-require './dao/paginator.php';
 
 $top_4_prods = get_product(4, '', 'view'); // lấy 4 sản phẩm có view lớn nhất
 $top_10_prod = get_product(10, '', 'view'); // lấy 10 sản phẩm có view lớn nhất
 $total_prods_count = get_product_count(); // lấy tổng số sản phẩm
+
 $category_id = $_POST['category'] ?? 'all'; // lấy id của danh mục được chọn
 $search = $_POST['search'] ?? ''; // lấy từ khóa tìm kiếm
+$pageno =  $_POST['pageno'] ?? 1; // lấy số trang hiện tại
+
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
 $main_prods = $category_id == 'all' ? get_product($total_prods_count) : get_product($total_prods_count, $category_id); // lấy sản phẩm theo danh mục
 
@@ -29,7 +31,6 @@ if ($search != '') {
 }
 
 // Phân trang
-$pageno =  $_POST['pageno'] ?? 1; // trang hiện tại
 $prods_per_page = 12; // số sản phẩm trên một trang
 $total_prods = count($main_prods); // tổng số sản phẩm
 $offset = ($pageno - 1) * $prods_per_page; // vị trí bắt đầu lấy sản phẩm
@@ -140,7 +141,7 @@ $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản ph
                             <a href="" class="prod-link">
                                 <h3 class="prod-item__name truncate theme--dark"><?= $prod["name"] ?></h3>
                                 <div class="prod-item__img-wrapper">
-                                    <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
+                                    <img class="img-fluid prod-item__img" src="https://source.unsplash.com/random?landscape,city" alt="" />
                                     <span class="prod-item__price"><?= $prod["price"] ?></span>
                                     <i class="fas fa-eye prod-item__view">
                                         <span><?= $prod["view"] ?></span>

@@ -239,13 +239,15 @@
 
 .prod-item:hover .prod-item__view,
 .prod-item:hover .prod-item__price {
-  color: var(--primary-500);
+  color: var(--primary-700);
 }
 
-.prod-item:hover img{
+
+.prod-item:hover .prod-item__img{
   /* blur and darken image */
-  filter: blur(2px);
-  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+
+  filter: blur(.7px) brightness(0.7);
   z-index: -1;
   transition: all 0.3s ease-in-out;
 
