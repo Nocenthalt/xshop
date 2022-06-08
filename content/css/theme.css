@@ -10,12 +10,12 @@
   --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
   --primary-100: hsl(
     var(--primary-h),
-    var(--primary-s),
+    calc(var(--primary-s) - var(--light) * 0.5),
     calc(var(--primary-l) - var(--light) * 2)
   );
   --primary-300: hsl(
     var(--primary-h),
-    var(--primary-s),
+    calc(var(--primary-s) - var(--light)),
     calc(var(--primary-l) - var(--light))
   );
   --primary-500: hsl(
@@ -27,6 +27,12 @@
     var(--primary-h),
     var(--primary-s),
     calc(var(--primary-l) + var(--light) * 2)
+  );
+
+  --error: hsl(
+    0,
+    var(--primary-s),
+    var(--primary-l)
   );
 
   --line: #c4c4c440;
@@ -93,3 +99,4 @@
 .border--line {
   border: 1px solid var(--line);
 }
+

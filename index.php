@@ -5,7 +5,7 @@ require 'dao/session.php';
 get_header();
 ?>
 <?php
-$page = $_GET['page'] ?? $_SESSION['page'];
+$page = $_GET['page'] ?? 'home';
 $path = "site/{$page}.php";
 if (file_exists($path)) {
 ?>

@@ -24,7 +24,7 @@
         <header id="header">
             <nav class="nav">
                 <div class="mx-auto grid nav__container pos-r my-2">
-                    <a href="#" class="nav__logo block">
+                    <a href="?page=home" class="nav__logo block">
                         <img src="./content/img/logo.png" class="img-fluid" alt="Xshop Logo" />
                     </a>
                     <div class="nav__menu flex">
@@ -41,7 +41,7 @@
                                         <a href="#" class="nav__link nav__link--main block">Đăng ký tài khoản</a>
                                     </li>
                                     <li class="nav__item t-center">
-                                        <a href="#" class="nav__link nav__link--main block theme--dark">Đăng nhập</a>
+                                        <a href="?page=login" class="nav__link nav__link--main block theme--dark">Đăng nhập</a>
                                     </li>
                                 </ul>
                             </div>

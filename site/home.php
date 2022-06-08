@@ -141,7 +141,7 @@ $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản ph
                             <a href="" class="prod-link">
                                 <h3 class="prod-item__name truncate theme--dark"><?= $prod["name"] ?></h3>
                                 <div class="prod-item__img-wrapper">
-                                    <img class="img-fluid prod-item__img" src="https://source.unsplash.com/random?landscape,city" alt="" />
+                                    <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
                                     <span class="prod-item__price"><?= $prod["price"] ?></span>
                                     <i class="fas fa-eye prod-item__view">
                                         <span><?= $prod["view"] ?></span>
