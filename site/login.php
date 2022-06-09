@@ -5,15 +5,15 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if ($user = validateLogin($username, $password)) {
+    if ($user = validate_login($username, $password)) {
         $_SESSION['user']['username'] = $username;
         $_SESSION['user']['role'] = $user['role'];
-        $_SESSION['error'] = false;
+        $_SESSION['errors'] = false;
+        redirect('home');
     }
+
     else {
-        $_SESSION['error'] = 'Tên đăng nhập hoặc mật khẩu không đúng';
-        $page = 'home';
-        
+        $_SESSION['errors'] = 'Tên đăng nhập hoặc mật khẩu không đúng';
     }
 
    
@@ -25,11 +25,11 @@ if (isset($_POST['login'])) {
 <div class="container">
     <form action="" method="POST" class="form-signin flex mx-auto">
         <input type="hidden" name="login" value="true">
-        <h2 class="form-signin-heading <?= $_SESSION['error'] ? "error": "" ?>"><?= $_SESSION['error'] ? $_SESSION['error'] : "Đăng nhập tài khoản" ?></h2>
+        <h2 class="form-signin-heading <?= $_SESSION['errors'] ? "error": "" ?>"><?= $_SESSION['errors'] ? $_SESSION['errors'] : "Đăng nhập tài khoản" ?></h2>
         <label for="inputUser" class="sr-only">Username</label>
-        <input type="text" id="inputUser" name="username" class="form-control-login" placeholder="Username" required autofocus>
+        <input type="text" id="inputUser" name="username" class="form-control__input" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="password" class="form-control-login" placeholder="Password" required>
+        <input type="password" id="inputPassword" name="password" class="form-control__input" placeholder="Password" required>
 
         <button class="btn  btn--primary-o login-btn" type="submit">Đăng nhập</button>
         <div class="wrapper flex">

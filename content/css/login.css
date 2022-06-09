@@ -27,22 +27,22 @@
 }
 
 .form-signin-heading,
-.form-control-login {
+.form-control__input {
   margin-bottom: 3.5rem;
 }
 
-.form-control-login {
+.form-control__input {
   width: 100%;
   background: var(--line);
   padding: 0.75em 0.5em;
 }
 
-.form-control-login:focus {
+.form-control__input:focus {
   outline: none;
 }
 
-.form-control-login:focus,
-.form-control-login:focus::placeholder {
+.form-control__input:focus,
+.form-control__input:focus::placeholder {
   background: var(--primary-700);
   color: var(--primary-300);
   transition: all 0.2s ease-in-out;
@@ -58,6 +58,12 @@
   text-align: center;
   border-radius: 0 0 0.5rem 0.5rem;
   margin-bottom: 2rem;
+}
+
+.login-btn:hover {
+  background: var(--primary-300);
+  color: var(--primary-700);
+  transition: all 0.2s ease-in-out;
 }
 
 .wrapper {

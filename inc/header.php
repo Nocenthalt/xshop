@@ -1,4 +1,4 @@
-<html>
+<html lang="vn">
 
 <head>
     <title>X-shop</title>
@@ -38,7 +38,7 @@
                                         <a href="#" class="nav__link nav__link--main block">Quên mật khẩu</a>
                                     </li>
                                     <li class="nav__item">
-                                        <a href="#" class="nav__link nav__link--main block">Đăng ký tài khoản</a>
+                                        <a href="?page=register" class="nav__link nav__link--main block">Đăng ký tài khoản</a>
                                     </li>
                                     <li class="nav__item t-center">
                                         <a href="?page=login" class="nav__link nav__link--main block theme--dark">Đăng nhập</a>
