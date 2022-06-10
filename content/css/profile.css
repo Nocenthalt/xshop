@@ -1,14 +1,14 @@
 .form-group {
     grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
+    gap: 3rem;
     margin-top: 10vh;
   }
   
-  .form-reg {
+  .form-update {
     max-width: 45vw;
   }
   
-  .form-reg-heading {
+  .form-update-heading {
     margin-top: 10vh;
     padding: 1.25rem;
   
@@ -58,28 +58,66 @@
     transition: all 0.2s ease-in-out;
   }
   
-  .register-btn {
-    width: 100%;
-    padding: 0.75em;
-    color: var(--primary-300);
-    font: 1.25rem var(--font-main);
-    font-weight: bold;
-  
-    text-align: center;
-    border-radius: 0 0 10px 10px;
+  .form-submit {
     margin-top: 4.5rem;
+    margin-bottom: 10rem;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    position: relative;
+}
+
+  .update-btn,
+  .redirect-btn {
+    padding: 0.75em 1.25rem;
+    font: 0.8125rem var(--font-main);
+    font-weight: bold;
+    text-transform: capitalize;
+    border-radius: 10px;
+    text-align: center;
   }
   
-  .register-btn:hover {
-    background: var(--primary-300);
-    color: var(--primary-700);
+  .update-btn:hover {
+    background: transparent;
+    color: var(--primary-300);
+    border: 1px solid var(--primary-300);   
     transition: all 0.2s ease-in-out;
   }
+  
+  .update-btn {
+    background: var(--primary-300);
+  }
 
+  .redirect-btn:hover {
+    background:  var(--error);
+    color: white;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid var(--error);
+  }
+
+
+
+  
 .profile-avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: var(--primary-300);
+    background: var(--line);
     margin: 1.5rem auto;
-} 
+}
+ 
+.profile-avatar img {
+    border-radius: 50%;
+}
+
+.divider {
+    background: var(--line);
+}
+
+.change-password {
+    position: absolute;
+    left: .5rem;
+    bottom: calc(100% + 1.5rem);
+    font-weight: bold;
+    color: var(--primary-300);
+}

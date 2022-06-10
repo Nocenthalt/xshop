@@ -40,30 +40,31 @@
                                     <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-2">
                                         <ul class="nav__list">
                                             <div class="nav__menu__user__avatar">
-                                                <img src="<?= $_SESSION['avatar'] != '' ? './content/img/default-' . rand(1, 4) . '.webp' : '' ?>" class="img-fluid" alt="User Avatar" />
+                                                <img src="<?= $_SESSION['avatar'] ?? './content/img/default-' . rand(1, 4) . '.webp' ?>" class="img-fluid user-avatar" alt="User Avatar" />
                                             </div>
                                             <div class="nav__menu__user__name">
                                                 <p><?= $_SESSION['username'] ?></p>
                                             </div>
                                             <li class="nav__item">
-                                                <a href="#" class="nav__link nav__link--main block">Cập nhật thông tin</a>
+                                                <a href="?page=profile" class="nav__link nav__link--main block">Cập nhật tài khoản</a>
                                             </li>
                                             <li class="nav__item t-center">
                                                 <a href="?page=logout" class="nav__link nav__link--main block theme--dark">Đăng xuất</a>
                                             </li>
                                         </ul>
                                     </div>
+                                    <!-- admin -->
                                 <?php elseif ($_SESSION['role'] == 1) : ?>
                                     <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-2">
                                         <ul class="nav__list">
                                             <div class="nav__menu__user__avatar">
-                                                <img src="<?= $_SESSION['avatar'] != '' ? './content/img/default-' . rand(1, 4) . '.webp' : '' ?>" class="img-fluid" alt="User Avatar" />
+                                            <img src="<?= $_SESSION['avatar'] ?? './content/img/default-' . rand(1, 4) . '.webp' ?>" class="img-fluid user-avatar" alt="User Avatar" />
                                             </div>
                                             <div class="nav__menu__user__name">
                                                 <p><?= $_SESSION['username'] ?></p>
                                             </div>
                                             <li class="nav__item">
-                                                <a href="#" class="nav__link nav__link--main block">Cập nhật thông tin</a>
+                                                <a href="#" class="nav__link nav__link--main block">Cập nhật tài khoản</a>
                                             </li>
                                             <li class="nav__item">
                                                 <a href="#" class="nav__link nav__link--main block">Quảng trị website</a>

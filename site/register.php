@@ -7,15 +7,14 @@ if(isset($_POST['register'])) {
         $data = input_clean($_POST);
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $data['birthdate'] = date('Y-m-d', strtotime($data['birthdate']));
-        $data['role'] = 1;
-        $data['identity'] = $_SESSION['user']['identity'];
+        $data['role'] = 0;
+        $data['identity'] = $_SESSION['identity'];
         $data['avatar'] = '';
         $user = pdo_execute('INSERT INTO users (name, username, email, birthdate, password, role, identity, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
         [$data['name'], $data['username'], $data['email'], $data['birthdate'], $data['password'],  $data['role'], $data['identity'], $data['avatar']]);
         
         echo '<script>alert("Đăng ký thành công!");</script>';
-        // trở về trang chủ
-        redirect('home');
+        redirect('login');
     }
 }
 
@@ -64,7 +63,7 @@ if(isset($_POST['register'])) {
             </div>
             <!-- birthdate -->
             <div class="form-control">
-                <label for="birthdate">Ngày Sinh</label>
+                <label for="birthdate">Ngày Sinh <span class="disabled small p-1">(Không bắt buộc)</span> </label>
                 <input 
                     type="date" 
                     id="birthdate" 

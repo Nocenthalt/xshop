@@ -106,3 +106,12 @@
   border: 1px solid var(--line);
 }
 
+.disabled {
+  pointer-events: none;
+  color: var(--line-500);
+}
+
+.small {
+  font-size: 0.75rem;
+  font-family: var(--font-main);
+}

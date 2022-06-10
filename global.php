@@ -19,7 +19,7 @@ function get_footer()
     }
 }
 
-// 
+// xóa mọi ký tự không hợp lệ
 function input_clean($data)
 {
     if (is_array($data)) {
@@ -52,13 +52,6 @@ function validate_login($username, $password)
 function validate_register($data)
 {
     $data = input_clean($data);
-    $data['name'] = input_clean($data['name']);
-    $data['username'] = input_clean($data['username']);
-    $data['email'] = input_clean($data['email']);
-    $data['birthdate'] = input_clean($data['birthdate']);
-    $data['password'] = input_clean($data['password']);
-    $data['confirm-password'] = input_clean($data['confirm-password']);
-
     $errors = [];
 
     if (empty($data['name'])) {
@@ -83,11 +76,13 @@ function validate_register($data)
         }
     }
 
-    if (empty($data['birthdate'])) {
-        $errors['birthdate'] = 'Ngày sinh không được để trống';
-        // only allow birthdate from range 1900-2020
-    } else if (strtotime($data['birthdate']) < strtotime('1900-01-01') || strtotime($data['birthdate']) > strtotime('2020-01-01')) {
-        $errors['birthdate'] = 'Ngày sinh không hợp lệ';
+    if ($data['birthdate']) {
+        // get this today date minus two years
+        $maximum = date('Y-m-d', strtotime('-2 years'));
+   
+        if (strtotime($data['birthdate']) < strtotime('1900-01-01') || strtotime($data['birthdate']) > strtotime($maximum)) {
+            $errors['birthdate'] = 'Ngày sinh không hợp lệ';
+        }
     }
 
     if (empty($data['password'])) {
@@ -106,9 +101,47 @@ function validate_register($data)
     }
 }
 
+function validate_profile($data)
+{
+    $data = input_clean($data);
+    $errors = [];
+
+    if (empty($data['name'])) {
+        $errors['name'] = 'Họ và tên không được để trống';
+    } else if (!preg_match('/^[a-zA-Z ]+$/', $data['name'])) {
+        $errors['name'] = 'Họ và tên không hợp lệ';
+    }
+
+    if ($data['birthdate']) {
+        if (strtotime($data['birthdate']) < strtotime('1900-01-01') || strtotime($data['birthdate']) > strtotime('2020-01-01')) {
+            $errors['birthdate'] = 'Ngày sinh không hợp lệ';
+        }
+    }
+    // phone number
+    if ($data['phone']) {
+        if (!preg_match('/^(\+84|0)\d{9,11}$/', $data['phone'])) {
+            $errors['phone'] = 'Số điện thoại không hợp lệ';
+        }
+    }
+    // email
+    if (empty($data['email'])) {
+        $errors['email'] = 'Email không được để trống';
+    } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Email không hợp lệ';
+    }
+
+
+    if ($errors) {
+        return $errors;
+    } else {
+        return false;
+    }
+}
 
 function redirect($page)
 {
-    header("Location: index.php?page=$page");
+    $sec = 1;
+    header("Refresh: $sec; url=index.php?page=$page");
+    // header("Location: index.php?page=$page");
     exit();
 }
