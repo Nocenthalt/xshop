@@ -1,5 +1,7 @@
 <?php
 // validate register
+
+$user = pdo_execute('SELECT * FROM users WHERE username = ?', [$_SESSION['username']]);
 if(isset($_POST['register'])) {
     if($_SESSION['errors'] = validate_register($_POST)) {
     }
@@ -10,8 +12,6 @@ if(isset($_POST['register'])) {
         $data['role'] = 1;
         $data['identity'] = $_SESSION['user']['identity'];
         $data['avatar'] = '';
-        $user = pdo_execute('INSERT INTO users (name, username, email, birthdate, password, role, identity, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
-        [$data['name'], $data['username'], $data['email'], $data['birthdate'], $data['password'],  $data['role'], $data['identity'], $data['avatar']]);
         
         echo '<script>alert("Đăng ký thành công!");</script>';
         // trở về trang chủ
@@ -24,9 +24,13 @@ if(isset($_POST['register'])) {
 
 <div class="container">
 
-    <form action="" method="POST" class="form-reg mx-auto">
+    <form action="" method="POST" class="form-reg mx-auto" enctype="multipart/form-data">
         <input type="hidden" name="register" value="true">
-        <h2 class="form-reg-heading <?= $_SESSION['errors'] ? "error" : "" ?>"><?= $_SESSION['errors'] ? 'Lỗi' : "Đăng nhập tài khoản" ?></h2>
+        <h2 class="form-reg-heading <?= $_SESSION['errors'] ? "error" : "" ?>"><?= $_SESSION['errors'] ? 'Lỗi' : "Cập nhật tài khoản" ?></h2>
+        <div class="profile-avatar">
+            <img src="<?= $user['avatar'] ?>" alt="">
+        </div>
+        <div class="divider"></div>
         <div class="form-group grid">
             <div class="form-control">
                 <label for="name">Họ và Tên</label>

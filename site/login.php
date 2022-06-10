@@ -1,31 +1,28 @@
 <?php
-
 // validate login
+
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-
+    
     if ($user = validate_login($username, $password)) {
-        $_SESSION['user']['username'] = $username;
-        $_SESSION['user']['role'] = $user['role'];
-        $_SESSION['errors'] = false;
-        redirect('home');
-    }
-
-    else {
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $user['role'];
+        $_SESSION['avatar'] = $user['avatar'];
+        $_SESSION['identity'] = $user['identity'];
+        header('Refresh: 2; URL=index.php?page=home');
+        exit();
+     
+    } else {
         $_SESSION['errors'] = 'Tên đăng nhập hoặc mật khẩu không đúng';
     }
-
-   
 }
 
-
 ?>
-
 <div class="container">
     <form action="" method="POST" class="form-signin flex mx-auto">
         <input type="hidden" name="login" value="true">
-        <h2 class="form-signin-heading <?= $_SESSION['errors'] ? "error": "" ?>"><?= $_SESSION['errors'] ? $_SESSION['errors'] : "Đăng nhập tài khoản" ?></h2>
+        <h2 class="form-signin-heading <?= $_SESSION['errors'] ? "error" : "" ?>"><?= $_SESSION['errors'] ? $_SESSION['errors'] : "Đăng nhập tài khoản" ?></h2>
         <label for="inputUser" class="sr-only">Username</label>
         <input type="text" id="inputUser" name="username" class="form-control__input" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>

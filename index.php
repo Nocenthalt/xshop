@@ -1,10 +1,10 @@
 <?php
 require 'global.php';
-require 'dao/pdo.php';
 require 'dao/session.php';
+require 'dao/pdo.php';
+
+set_session();
 get_header();
-?>
-<?php
 $page = $_GET['page'] ?? 'home';
 $path = "site/{$page}.php";
 

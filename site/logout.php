@@ -1,7 +1,5 @@
 <?php
-    if (isset($_GET['logout'])) {
-        session_unset();
-        redirect('home');
-    }
-
+$_SESSION = Array();
+header('Location: index.php?page=home');
+exit();
 ?>

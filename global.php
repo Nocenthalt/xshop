@@ -19,7 +19,7 @@ function get_footer()
     }
 }
 
-
+// 
 function input_clean($data)
 {
     if (is_array($data)) {
@@ -32,6 +32,7 @@ function input_clean($data)
     return $data;
 }
 
+// validate đăng nhập
 function validate_login($username, $password)
 {
     $username = input_clean($username);
@@ -47,6 +48,7 @@ function validate_login($username, $password)
     return false;
 }
 
+// validate đăng ký
 function validate_register($data)
 {
     $data = input_clean($data);
@@ -105,6 +107,8 @@ function validate_register($data)
 }
 
 
-function redirect($page) {
-    echo '<script>window.location.href = "index.php?=' . $page . '"</script>';
+function redirect($page)
+{
+    header("Location: index.php?page=$page");
+    exit();
 }

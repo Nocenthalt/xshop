@@ -37,6 +37,7 @@ $offset = ($pageno - 1) * $prods_per_page; // vị trí bắt đầu lấy sản
 $total_pages = ceil($total_prods / $prods_per_page); // tổng số trang
 $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản phẩm hiển thị trên một trang
 
+
 ?>
 <div class="container">
     <div class="banner-container">
