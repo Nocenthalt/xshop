@@ -145,3 +145,14 @@ function redirect($page)
     // header("Location: index.php?page=$page");
     exit();
 }
+
+function number_shorten($number)
+{
+    if ($number >= 1000000) {
+        return round($number / 1000000, 1) . ' m';
+    } else if ($number >= 1000) {
+        return round($number / 1000, 1) . ' k';
+    } else {
+        return $number;
+    }
+}

@@ -68,11 +68,24 @@
 
   text-align: center;
   border-radius: 0 0 10px 10px;
-  margin-top: 4.5rem;
 }
 
 .register-btn:hover {
   background: var(--primary-300);
   color: var(--primary-700);
   transition: all 0.2s ease-in-out;
+}
+
+.form-submit {
+  margin-top: 4.5rem;
+  margin-bottom: 10rem;
+  position: relative;
+}
+
+.login-redirect {
+  position: absolute;
+  left: .5rem;
+  bottom: calc(100% + 1.5rem);
+  font-weight: bold;
+  color: var(--primary-300);
 }

@@ -211,7 +211,7 @@
   position: absolute;
 
   /* offset đi 75% width của .prod-item__img */
-  left: calc(75% - 3.5rem);
+  left: calc(75% - 3.75rem);
   bottom: 1rem;
   font-size: 1.25rem;
 }
@@ -220,7 +220,7 @@
   font-size: 0.75rem;
   font-family: var(--font-secondary);
   position: relative;
-  top: -0.5rem;
+  top: -1rem;
 }
 
 

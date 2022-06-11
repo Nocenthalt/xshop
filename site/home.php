@@ -80,7 +80,7 @@ $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản ph
                 <!-- top 4 products -->
                 <?php foreach ($top_4_prods as $product) { ?>
                     <div class="top-4-prod">
-                        <a href="" class="hover-mask" data-content="<?= $product["name"] ?>">
+                        <a href="?page=detail&id=<?= $product["product_id"] ?>&category=<?= $product["category_id"] ?>" class="hover-mask" data-content="<?= $product["name"] ?>">
                             <img class="img-fluid top-4-prod__img" src="<?= $product["image"] ?>" alt="<?= $product["name"] ?>" />
                         </a>
                     </div>
@@ -125,7 +125,7 @@ $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản ph
                     <div class="top-10-prod__list col-2-2 grid ">
                         <?php foreach ($top_10_prod as $product) { ?>
                             <div class="top-10-prod__item">
-                                <a href="" class="hover-mask" data-content="<?= $product["name"] ?>">
+                                <a href="?page=detail&id=<?= $product["product_id"] ?>&category=<?= $product["category_id"] ?>" class="hover-mask" data-content="<?= $product["name"] ?>">
                                     <img class="img-fluid top-10-prod__img" src="<?= $product["image"] ?>" alt="<?= $product["name"] ?>" />
                                 </a>
                             </div>
@@ -139,13 +139,13 @@ $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản ph
                     <!-- main product showcase  -->
                     <?php foreach ($display_prods as $prod) { ?>
                         <div class="prod-item">
-                            <a href="" class="prod-link">
+                            <a href="?page=detail&id=<?= $prod["product_id"] ?>&category=<?= $prod["category_id"] ?>" class="prod-link">
                                 <h3 class="prod-item__name truncate theme--dark"><?= $prod["name"] ?></h3>
                                 <div class="prod-item__img-wrapper">
                                     <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
                                     <span class="prod-item__price"><?= $prod["price"] ?></span>
                                     <i class="fas fa-eye prod-item__view">
-                                        <span><?= $prod["view"] ?></span>
+                                        <span><?= number_shorten($prod["view"]); ?></span>
                                     </i>
                                 </div>
                             </a>

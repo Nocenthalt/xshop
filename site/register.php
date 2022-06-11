@@ -97,7 +97,8 @@ if(isset($_POST['register'])) {
                     >
             </div>
         </div>
-        <div class="form-control">
+        <div class="form-control form-submit">
+        <a href="?page=login" class="login-redirect small">Đã có tài khoản?</a>
             <button type="submit" class="btn btn--primary-o register-btn">Đăng Ký</button>
         </div>
     </form>

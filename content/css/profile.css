@@ -96,8 +96,6 @@
   }
 
 
-
-  
 .profile-avatar {
     width: 100px;
     height: 100px;
@@ -105,7 +103,7 @@
     background: var(--line);
     margin: 1.5rem auto;
 }
- 
+
 .profile-avatar img {
     border-radius: 50%;
 }

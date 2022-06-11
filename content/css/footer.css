@@ -46,8 +46,8 @@ footer {
 
 .back-to-top {
   position: absolute;
-  top: .5rem;
-  left: .45rem;
+  top: .25rem;
+  left: .25rem;
   z-index: 1;
   font-size: 2rem;
   color: rgb(20, 20, 20);
