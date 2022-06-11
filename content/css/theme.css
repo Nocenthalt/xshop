@@ -59,6 +59,21 @@
   color: #fff;
 }
 
+.btn--success {
+  background: #E7D4C0;
+  color: #fff;
+}
+
+.btn--danger {
+  background: var(--error);
+  color: #fff;
+}
+
+.btn--outline {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
 /* background color */
 
 .theme--primary {

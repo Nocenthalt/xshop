@@ -1,8 +1,6 @@
 <?php
 
-    function category_list($sql) {
-        $data = pdo_query($sql);
-        var_dump($data);
+    function get_category($id) {
+        $sql = "SELECT * FROM `category` WHERE `id` = ?";
+        return pdo_query($sql, [$id]);
     }
-
-?>

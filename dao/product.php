@@ -26,4 +26,10 @@ function get_product_count()
     return $data[0]['count'];
 }
 
+function delete_product($id)
+{
+    $sql = "DELETE FROM `product` WHERE `product_id` = {$id}";
+    pdo_query($sql);
+}
+
 ?>
