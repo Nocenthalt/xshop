@@ -64,10 +64,10 @@
                                                 <p><?= $_SESSION['username'] ?></p>
                                             </div>
                                             <li class="nav__item">
-                                                <a href="#" class="nav__link nav__link--main block">Cập nhật tài khoản</a>
+                                                <a href="?page=profile" class="nav__link nav__link--main block">Cập nhật tài khoản</a>
                                             </li>
                                             <li class="nav__item">
-                                                <a href="#" class="nav__link nav__link--main block">Quảng trị website</a>
+                                                <a href="?page=product" class="nav__link nav__link--main block">Quảng trị website</a>
                                             </li>
                                             <li class="nav__item t-center">
                                                 <a href="?page=logout" class="nav__link nav__link--main block theme--dark">Đăng xuất</a>

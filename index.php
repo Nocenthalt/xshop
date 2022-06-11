@@ -8,6 +8,18 @@ get_header();
 $page = $_GET['page'] ?? 'home';
 $path = "site/{$page}.php";
 
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] == '1') {
+        //cho phép admin truy cập những trang của user/non-user
+        if (in_array($page, ['logout', 'home', 'profile', 'detail'])) {
+            $path = "site/{$page}.php";
+        } else {
+            $path = "admin/{$page}.php";
+        }
+    }
+}
+
+
 if (file_exists($path)) {
 ?>
     <!-- css -->
@@ -19,7 +31,12 @@ if (file_exists($path)) {
 <?php
     require $path;
 } else {
-    echo "không tồn tại trang này";
+?>
+    <style>
+        <?php include "./content/css/404.css" ?>
+    </style>
+<?php
+    require 'site/404.php';
 }
 
 ?>

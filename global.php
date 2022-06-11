@@ -141,8 +141,8 @@ function validate_profile($data)
 function redirect($page)
 {
     $sec = 1;
-    header("Refresh: $sec; url=index.php?page=$page");
-    // header("Location: index.php?page=$page");
+    // header("Refresh: $sec; url=index.php?page=$page");
+    header("Location: index.php?page=$page");
     exit();
 }
 

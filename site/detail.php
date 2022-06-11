@@ -4,16 +4,21 @@ require './dao/product.php';
 $product = pdo_query("SELECT * FROM `product` WHERE `product_id` = ?", [$_GET['id']]);
 $comments = pdo_query("SELECT * FROM `comment` WHERE `product_id` = ? ORDER BY `date` DESC", [$_GET['id']]);
 $comments_count = count($comments);
-$top_9_prod = get_product(9, $_GET['category'], 'view'); // lấy 10 sản phẩm có view lớn nhất
+$top_9_prod = get_product(9, $_GET['category'] ?? '', 'view'); // lấy 10 sản phẩm có view lớn nhất
 
 if (isset($_POST['comment'])) {
-    $content = $_POST['content'];
-    $date = date('Y-m-d H:i:s');
-    $username = $_SESSION['username'];
-    $product_id = $_GET['id'];
-    pdo_query("INSERT INTO `comment` (`content`, `date`, `username`, `product_id`) VALUES (?, ?, ?, ?)", [$content  , $date, $username, $product_id]);
-    redirect('detail&id=' . $product_id . '&category=' . $_GET['category']);
+    if (!isset($_SESSION['user'])) {
+        echo '<script>alert("Bạn phải đăng nhập để bình luận!");</script>';
+    } else {
+        $content = $_POST['content'];
+        $date = date('Y-m-d H:i:s');
+        $username = $_SESSION['username'];
+        $product_id = $_GET['id'];
+        pdo_query("INSERT INTO `comment` (`content`, `date`, `username`, `product_id`) VALUES (?, ?, ?, ?)", [$content, $date, $username, $product_id]);
+        redirect('detail&id=' . $product_id . '&category=' . $_GET['category']);
+    }
 }
+
 ?>
 
 <div class="container">
