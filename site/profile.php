@@ -10,8 +10,9 @@ if (isset($_POST['update'])) {
         $data['birthdate'] = date('Y-m-d', strtotime($data['birthdate']));
         if (isset($_FILES)) {
             if ($_FILES['avatar']['size']) {
+                $path = './db/user/';
                 require 'upload.php';
-                $_SESSION['avatar'] = $url;
+                $_SESSION['avatar'] = $path;
             }
         }
         else {

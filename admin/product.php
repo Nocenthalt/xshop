@@ -58,7 +58,7 @@ if ($delete_selected) { delete_product($selected); }
                         </td>
                         <td class="ta-center">
                             <a href="?page=detail&id=<?= $product['product_id'] ?>" class="btn btn--primary">Xem</a>
-                            <a href="?page=edit&id=<?= $product['product_id'] ?>" class="btn btn--success">Sửa</a>
+                            <a href="?page=edit-product&id=<?= $product['product_id'] ?>" class="btn btn--success">Sửa</a>
                             <form action="" method="post" class="delete-one">
                                 <input type="hidden" name="delete_one" value="<?= $product['product_id'] ?>">
                                 <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
@@ -72,6 +72,7 @@ if ($delete_selected) { delete_product($selected); }
                     <button class="btn btn--primary select_all" name="select_all" value="true">Chọn tất cả</button>
                     <button class="btn btn--outline deselect_all" name="select_all" value="false">Bỏ chọn tất cả</button>
                     <button name="delete_selected" value="true" class="btn btn--danger" onClick="javascript:return confirm('Bạn có muốn xóa các sản phẩm đã chọn?');">Xóa đã chọn</button>
+                    <a href="?page=add-product" class="btn btn--success">Thêm mới</a>
                 </div>
                 <div class="col">
                     <div class="pagination flex mx-auto">

@@ -58,8 +58,8 @@ function validate_register($data)
         $errors['name'] = 'Họ và tên không được để trống';
     } else if (!preg_match('/^[a-zA-Z ]+$/', $data['name'])) {
         $errors['name'] = 'Họ và tên không hợp lệ';
-    }
 
+    }
     if (empty($data['username'])) {
         $errors['username'] = 'Tên đăng nhập không được để trống';
     } else if (pdo_execute('SELECT * FROM users WHERE username = ?', [$data['username']])) {
@@ -79,7 +79,7 @@ function validate_register($data)
     if ($data['birthdate']) {
         // get this today date minus two years
         $maximum = date('Y-m-d', strtotime('-2 years'));
-   
+
         if (strtotime($data['birthdate']) < strtotime('1900-01-01') || strtotime($data['birthdate']) > strtotime($maximum)) {
             $errors['birthdate'] = 'Ngày sinh không hợp lệ';
         }
@@ -135,6 +135,29 @@ function validate_profile($data)
         return $errors;
     } else {
         return false;
+    }
+}
+
+function validate_product($data)
+{
+    $data = input_clean($data);
+    $errors = [];
+
+    if (empty($data['name'])) {
+        $errors['name'] = 'Tên sản phẩm không được để trống';
+    } else if (!preg_match('/^[a-zA-Z0-9_]+$/', $data['name'])) {
+        $errors['name'] = 'Tên sản phẩm không hợp lệ';
+    }
+    if (empty($data['price'])) {
+        $errors['price'] = 'Giá sản phẩm không được để trống';
+    } else if (!preg_match('/^\d+$/', $data['price'])) {
+        $errors['price'] = 'Giá sản phẩm không hợp lệ';
+    }
+    if (empty($data['description'])) {
+        $errors['description'] = 'Mô tả sản phẩm không được để trống';
+    }
+    if (empty($data['category'])) {
+        $errors['category'] = 'Danh mục sản phẩm không được để trống';
     }
 }
 

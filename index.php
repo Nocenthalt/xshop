@@ -27,7 +27,7 @@ if (file_exists($path)) {
         <?php include "./content/css/{$page}.css" ?>
     </style>
     <!-- js -->
-    <script src="./content/js/<?php echo $page ?>.js"></script>
+    <script src="./content/js/<?= $page ?>.js"></script>
 <?php
     require $path;
 } else {
