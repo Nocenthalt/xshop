@@ -111,7 +111,7 @@
 }
 
 .table-tools__container {
-  position: relative;
+  width: 95vw;
   bottom: 0;
 }
 
@@ -119,8 +119,9 @@
   margin: 0 1rem;
 }
 .row {
-    margin: 1.5rem 0;
-    width: 80%;
+    margin-top: 10rem;
+    margin-bottom: 1.5rem;
+    width: 90vw;
 }
 .row,
 .table-tools__container {

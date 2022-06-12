@@ -10,7 +10,7 @@ $search = $_POST['search'] ?? ''; // lấy từ khóa tìm kiếm
 $pageno =  $_POST['pageno'] ?? 1; // lấy số trang hiện tại
 
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
-$main_prods = $category_id == 'all' ? get_product($total_prods_count) : get_product($total_prods_count, $category_id); // lấy sản phẩm theo danh mục
+$main_prods = $category_id == 'all' ? get_product($total_prods_count) : get_product($total_prods_count, "`category_id` = {$category_id}"); // lấy sản phẩm theo danh mục
 
 
 // Cập nhật số sản phẩm nếu thay đổi danh mục

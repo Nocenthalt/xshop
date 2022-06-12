@@ -1,11 +1,11 @@
 <?php
 
-function get_product($limit = null, $cat_id = null, $order = null)
+function get_product($limit = null, $cond = null, $order = null)
 {
     $sql = "SELECT * FROM `product`";
 
-    if ($cat_id) {
-        $sql .=  " WHERE `category_id` = {$cat_id}";
+    if ($cond) {
+        $sql .=  " WHERE $cond";
     }
     if ($order) {
         $sql .= " ORDER BY `$order` DESC";

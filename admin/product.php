@@ -67,7 +67,7 @@ if ($delete_selected) { delete_product($selected); }
                     </tr>
                 <?php } ?>
             </tbody>
-            <div class="row flex">
+            <div class="row flex mx-auto">
                 <div class="col table-tools__container">
                     <button class="btn btn--primary select_all" name="select_all" value="true">Chọn tất cả</button>
                     <button class="btn btn--outline deselect_all" name="select_all" value="false">Bỏ chọn tất cả</button>

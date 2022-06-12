@@ -3,26 +3,26 @@ require './dao/category.php';
 
 $category = get_all_category();
 
-// validate register
-if (isset($_POST['register'])) {
+if (isset($_POST['add-product'])) {
     if (!$_SESSION['errors'] = validate_product($_POST)) {
+        $data = $_POST;
+        $data['import_date'] = date('Y-m-d', strtotime($data['import_date']));
+
         if (isset($_FILES)) {
             if ($_FILES['product-image']['size']) {
                 $path = './db/product/';
                 require 'upload.php';
+                $data['image'] = $path;
             }
         }
 
-        $data = $_POST;
-        $data['import_date'] = date('Y-m-d', strtotime($data['import_date']));
-        $data['image'] = $path;
-
+        // update product
         pdo_execute(
             'INSERT INTO `product` (`name`, `price`, `image`, `import_date`, `category_id`, `description`) VALUES (?, ?, ?, ?, ?, ?)',
             [$data['product_name'], $data['price'], $data['image'], $data['import_date'], $data['category_id'], $data['description']]
         );
 
-        // redirect('product');
+        redirect('product');
     }
 }
 
@@ -31,7 +31,7 @@ if (isset($_POST['register'])) {
 
 <div class="container">
     <form action="" method="POST" class="form-reg mx-auto" enctype="multipart/form-data" s>
-        <input type="hidden" name="register" value="true">
+        <input type="hidden" name="add-product" value="true">
         <h2 class="form-reg-heading <?= $_SESSION['errors'] ? "error" : "" ?>"><?= $_SESSION['errors'] ? 'Lỗi' : "Thêm mới" ?></h2>
         <div class="form-section grid row">
             <div class="form-group grid col col-1.5-2">
@@ -86,8 +86,12 @@ if (isset($_POST['register'])) {
                 </div>
             </div>
         </div>
+        <!-- return to product -->
+
         <div class="form-control form-submit">
             <button type="submit" class="btn btn--primary-o register-btn">Thêm sản phẩm</button>
         </div>
+        <a href="?page=product" class="btn small"> Quay lại</a>
+
     </form>
 </div>
