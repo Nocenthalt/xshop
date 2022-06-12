@@ -15,5 +15,15 @@
 
         return $data;
     }
+    
+    function get_comment_count($cond = null)
+    {
+        $sql = "SELECT COUNT(*) AS count FROM `comment`";
+        if ($cond) {
+            $sql .= " WHERE $cond";
+        }
+        $data = pdo_query($sql);
 
+        return $data[0]['count'];
+    }
 ?>

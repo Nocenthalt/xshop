@@ -21,15 +21,24 @@ function get_product($limit = null, $cat_id = null, $order = null)
 function get_product_count()
 {
     $sql = "SELECT COUNT(*) AS count FROM `product`";
-    $data = pdo_query($sql);
+    $data = pdo_execute($sql);
 
-    return $data[0]['count'];
+    return $data['count'];
 }
 
-function delete_product($id)
+function delete_product($product_id)
 {
-    $sql = "DELETE FROM `product` WHERE `product_id` = {$id}";
-    pdo_query($sql);
+    print_r($product_id);   
+    //if id is an array, use recursion
+    if (is_array($product_id)) {
+        foreach ($product_id as $id) {
+            delete_product($id);
+        }
+    } else {
+        $sql = "DELETE FROM `product` WHERE `product_id` = ?";
+       pdo_execute($sql, [$product_id]);
+       redirect('product');
+    }
 }
 
 ?>
