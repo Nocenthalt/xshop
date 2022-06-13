@@ -1,8 +1,8 @@
 <?php
 
-$user = pdo_execute('SELECT * FROM users WHERE username = ?', [$_SESSION['username']]);
+$user = pdo_execute('SELECT * FROM users WHERE username = ?', [$_GET['username']]);
 $genders = ['Nam', 'Nữ', 'Khác'];
-
+$path = "";
 if (isset($_POST['update'])) {
     if (!$_SESSION['errors'] = validate_profile($_POST)) {
         $data = input_clean($_POST);
@@ -11,19 +11,15 @@ if (isset($_POST['update'])) {
             if ($_FILES['avatar']['size']) {
                 $path = './db/user/';
                 require 'upload.php';
-                $_SESSION['avatar'] = $path;
             }
-        } else {
-            $_SESSION['avatar'] = $user['avatar'];
         }
         pdo_execute(
-            'UPDATE `users` SET `name` = ?, `email` = ?, `birthdate` = ?, `avatar` = ?, `gender` = ? WHERE `username` = ?',
-            [$data['name'],  $data['email'], $data['birthdate'],  $_SESSION['avatar'], $data['gender'], $user['username']]
+            'UPDATE `users` SET `name` = ?, `email` = ?, `birthdate` = ?, `avatar` = ?, `gender` = ?, `phone_number` = ? WHERE `username` = ?',
+            [$data['name'],  $data['email'], $data['birthdate'],  $path, $data['gender'],  $data['phone'], $user['username']]
         );
     }
     echo "<script> alert('Cập nhật thành cống!') <script>";
-
-    redirect('profile');
+    redirect('customer');
 }
 
 
@@ -62,9 +58,9 @@ if (isset($_POST['update'])) {
                 <label for="gender">Giới Tính</label>
                 <select name="gender" id="gender" class="form-input">
                     <option value="" class="disabled"></option>
-                    <?php foreach ($genders as $gender) : ?>
-                        <option value=<?= $gender ?> <?= $gender == $user['gender'] ? 'selected' : '' ?>> <?= $gender ?> </option>
-
+                    <?php foreach($genders as $gender) : ?>
+                       <option value= <?= $gender ?>  <?= $gender == $user['gender'] ? 'selected' : ''?> > <?= $gender ?> </option>
+                    
                     <?php endforeach ?>
                 </select>
             </div>
@@ -82,7 +78,7 @@ if (isset($_POST['update'])) {
         <div class="form-control form-submit flex">
             <a href="?page=password-change" class="change-password small">Đổi mật khẩu</a>
             <button type="submit" class="btn btn--primary border update-btn">Cập Nhật</button>
-            <a href="?page=home" class="btn btn--primary-o block redirect-btn">Huỷ Bỏ</a>
+            <a href="?page=customer" class="btn btn--primary-o block redirect-btn">Huỷ Bỏ</a>
         </div>
     </form>
 </div>

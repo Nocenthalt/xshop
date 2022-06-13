@@ -7,7 +7,7 @@ $comments_count = count($comments);
 $top_9_prod = get_product(9, $_GET['category'] ?? '', 'view'); // lấy 10 sản phẩm có view lớn nhất
 
 if (isset($_POST['comment'])) {
-    if (!isset($_SESSION['user'])) {
+    if (!isset($_SESSION['username'])) {
         echo '<script>alert("Bạn phải đăng nhập để bình luận!");</script>';
     } else {
         $content = $_POST['content'];

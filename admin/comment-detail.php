@@ -1,17 +1,16 @@
 <?php
-require './dao/product.php';
-require './dao/category.php';
 require './dao/comment.php';
 require 'admin-header.php';
 
-[$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $_POST['search'] ?? "", get_product());
+$comment = get_comment("", "", "product_id = " . $_GET['id']);
+[$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $_POST['search'] ?? "", $comment);
 $selected = $_POST['selected'] ?? null;
 
 if ($delete_one = $_POST['delete_one'] ?? false) {
-    delete_product($delete_one);
+    delete_comment($delete_one);
 }
 if ($delete_selected = $_POST['delete_selected'] ?? false) {
-    delete_product($selected);
+    delete_comment($selected);
 }
 
 ?>
@@ -22,13 +21,10 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
         <table class="table table-striped mx-auto">
             <thead>
                 <tr>
-                    <th>Mã hàng</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Đơn giá</th>
-                    <th>Loại hàng</th>
-                    <th>Số lượt xem</th>
-                    <th>Số bình luận</th>
-                    <th>Ngày nhập</th>
+                    <th>Mã Bình Luận</th>
+                    <th>Nội Dung</th>
+                    <th>Người Bình Luận</th>
+                    <th>ngày Bình Luận</th>
                     <th class="ta-center"></th>
                     <!-- search bar -->
                     <th>
@@ -44,24 +40,20 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($filtered_items as $product) { ?>
+                <?php foreach ($filtered_items as $comment) { ?>
                     <tr>
-                        <td><?= $product['product_id'] ?></td>
-                        <td><?= $product['name'] ?></td>
-                        <td><?= $product['price'] ?></td>
-                        <td><?= get_category($product['category_id'])[0]['name'] ?></td>
-                        <td><?= $product['view'] ?></td>
-                        <td><?= get_comment_count("product_id = {$product['product_id']}") ?></td>
-                        <td><?= $product['import_date'] ?></td>
+                        <td><?= $comment['id'] ?></td>
+                        <td><?= $comment['content'] ?></td>
+                        <td><?= $comment['username'] ?></td>
+                        <td><?= $comment['date'] ?></td>
+
                         <!-- add checkbox -->
                         <td>
-                            <input <?= in_array($product['product_id'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $product['product_id'] ?>" onClick=" javascript:return submit()">
+                            <input <?= in_array($comment['product_id'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $product['product_id'] ?>" onClick=" javascript:return submit()">
                         </td>
                         <td class="ta-center">
-                            <a href="?page=detail&id=<?= $product['product_id'] ?>" class="btn btn--primary">Xem</a>
-                            <a href="?page=edit-product&id=<?= $product['product_id'] ?>" class="btn btn--success">Sửa</a>
                             <form action="" method="post" class="delete-one">
-                                <input type="hidden" name="delete_one" value="<?= $product['product_id'] ?>">
+                                <input type="hidden" name="delete_one" value="<?= $comment['product_id'] ?>">
                                 <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
                             </form>
                         </td>
@@ -73,7 +65,6 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                     <button class="btn btn--primary select_all" name="select_all" value="true">Chọn tất cả</button>
                     <button class="btn btn--outline deselect_all" name="select_all" value="false">Bỏ chọn tất cả</button>
                     <button name="delete_selected" value="true" class="btn btn--danger" onClick="javascript:return confirm('Bạn có muốn xóa các sản phẩm đã chọn?');">Xóa đã chọn</button>
-                    <a href="?page=add-product" class="btn btn--success">Thêm mới</a>
                 </div>
                 <div class="col">
                     <div class="pagination flex mx-auto">
@@ -87,8 +78,4 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
             </div>
         </table>
     </form>
-
-    <div class="table-tools">
-    </div>
-
 </div>

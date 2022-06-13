@@ -28,7 +28,6 @@ function get_product_count()
 
 function delete_product($product_id)
 {
-    print_r($product_id);   
     //if id is an array, use recursion
     if (is_array($product_id)) {
         foreach ($product_id as $id) {

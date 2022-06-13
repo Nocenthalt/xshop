@@ -12,7 +12,7 @@ $allowed = array('jpg', 'jpeg', 'png', 'webp');
 if (in_array($file_ext, $allowed)) {
     if ($file_error === 0) {
         if ($file_size <= 2097152) {
-            $file_name_new =  ($_SESSION['username'] ?? $_POST["product_name"]) . '.' . $file_ext;
+            $file_name_new =  ($_POST['username'] ?? $_POST["product_name"]) . '.' . $file_ext;
             $path .=  $file_name_new;
             if (move_uploaded_file($file_tmp, $path)) {
                 echo '<script>alert("Upload thành công")</script>';

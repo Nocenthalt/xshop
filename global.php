@@ -187,8 +187,7 @@ function validate_category($data)
 function redirect($page)
 {
     $sec = 1;
-    // header("Refresh: $sec; url=index.php?page=$page");
-    header("Location: index.php?page=$page");
+    header("Refresh: $sec; url=index.php?page=$page");
     exit();
 }
 
@@ -207,7 +206,7 @@ function pagination($pageno, $search = null, $total_items = [])
 {
     // Tìm kiếm tên sản phẩm
     if ($search) {
-        $total_products =  array_filter($total_items, function ($prod) use ($search) {
+        $total_items =  array_filter($total_items, function ($prod) use ($search) {
             $clean_target = strtolower($prod['name']);
             $clean_search = trim(strtolower($search));
 
