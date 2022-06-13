@@ -58,7 +58,6 @@ function validate_register($data)
         $errors['name'] = 'Họ và tên không được để trống';
     } else if (!preg_match('/^[a-zA-Z ]+$/', $data['name'])) {
         $errors['name'] = 'Họ và tên không hợp lệ';
-
     }
     if (empty($data['username'])) {
         $errors['username'] = 'Tên đăng nhập không được để trống';
@@ -159,6 +158,30 @@ function validate_product($data)
     if (empty($data['category'])) {
         $errors['category'] = 'Danh mục sản phẩm không được để trống';
     }
+
+    if ($errors) {
+        return $errors;
+    } else {
+        return false;
+    }
+}
+
+function validate_category($data)
+{
+    $data = input_clean($data);
+    $errors = [];
+
+    if (empty($data['name'])) {
+        $errors['name'] = 'Tên danh mục không được để trống';
+    } else if (!preg_match('/^[a-zA-Z0-9_\s]+$/', $data['name'])) {
+        $errors['name'] = 'Tên danh mục không hợp lệ';
+    }
+
+    if ($errors) {
+        return $errors;
+    } else {
+        return false;
+    }
 }
 
 function redirect($page)
@@ -178,4 +201,25 @@ function number_shorten($number)
     } else {
         return $number;
     }
+}
+
+function pagination($pageno, $search = null, $total_items = [])
+{
+    // Tìm kiếm tên sản phẩm
+    if ($search) {
+        $total_products =  array_filter($total_items, function ($prod) use ($search) {
+            $clean_target = strtolower($prod['name']);
+            $clean_search = trim(strtolower($search));
+
+            return strpos($clean_target, $clean_search) !== false;
+        });
+    }
+
+    // Phân trang
+    $prods_per_page = 12; // số sản phẩm trên một trang
+    $total_prods = count($total_items); // tổng số sản phẩm
+    $offset = ($pageno - 1) * $prods_per_page; // vị trí bắt đầu lấy sản phẩm
+    $total_pages = ceil($total_prods / $prods_per_page); // tổng số trang
+    $filtered_items = array_slice($total_items, $offset, $prods_per_page); // sản phẩm hiển thị trên một trang
+    return [$pageno, $total_pages, $filtered_items];
 }

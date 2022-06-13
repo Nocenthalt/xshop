@@ -8,3 +8,8 @@
         $sql = "SELECT * FROM `category`";
         return pdo_query($sql);
     }
+
+    function get_category_count($id) {
+        $sql = "SELECT COUNT(*) AS count FROM `product` WHERE `category_id` = ?";
+        return pdo_execute($sql, [$id])['count'];
+    }
