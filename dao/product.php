@@ -40,4 +40,20 @@ function delete_product($product_id)
     }
 }
 
-?>
+function add_view($product_id)
+{
+    //check if this product already has view with this username
+    $sql = "SELECT * FROM `view` WHERE `product_id` = ? AND `username` = ?";
+    $data = pdo_query($sql, [$product_id, $_SESSION['username']]);
+
+    if (count($data) == 0) {
+        //log this view
+        $sql = "INSERT INTO `view` (`product_id`, `username`) VALUES (?, ?)";
+        pdo_execute($sql, [$product_id, $_SESSION['username']]);
+
+        //update view count
+        $sql = "UPDATE `product` SET `view` = `view` + 1 WHERE `product_id` = ?";
+        pdo_execute($sql, [$product_id]);
+    }
+   
+}

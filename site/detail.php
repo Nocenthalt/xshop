@@ -1,5 +1,7 @@
 <?php
 require './dao/product.php';
+add_view($_GET['id']);
+
 //query product with product_id = $_GET['id'] using pdo_query
 $product = pdo_query("SELECT * FROM `product` WHERE `product_id` = ?", [$_GET['id']]);
 $comments = pdo_query("SELECT * FROM `comment` WHERE `product_id` = ? ORDER BY `date` DESC", [$_GET['id']]);
@@ -24,8 +26,7 @@ if (isset($_POST['comment'])) {
 <div class="container">
     <main class="product-hero grid theme--primary-500 mx-auto">
         <div class="product-hero__image">
-            <!-- <img class="img-fluid" src="<?php echo $product[0]['image'] ?>" alt=""> -->
-            <img src="https://source.unsplash.com/random?landscape,city" class="img-fluid" alt="">
+            <img class="img-fluid" src="<?php echo $product[0]['image'] ?>" alt="">
         </div>
         <div class="product-hero__info theme--primary">
             <h1><?= $product[0]['name'] ?></h1></span>

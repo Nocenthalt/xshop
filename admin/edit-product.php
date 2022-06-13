@@ -7,28 +7,25 @@ $edit_product = get_product("", "product_id = $edit_id")[0];
 $category = get_all_category();
 
 if (isset($_POST['edit'])) {
-    if (!$_SESSION['errors'] = validate_product($_POST)) {
-        $data = $_POST;
-        $data['import_date'] = date('Y-m-d', strtotime($data['import_date']));
+    $data = $_POST;
+    $data['import_date'] = date('Y-m-d', strtotime($data['import_date']));
 
-        if (isset($_FILES)) {
-            if ($_FILES['product-image']['size']) {
-                $path = './db/product/';
-                require 'upload.php';
-                $data['image'] = $path;
-            }
+    if (isset($_FILES)) {
+        if ($_FILES['product-image']['size']) {
+            $path = './db/product/';
+            require 'upload.php';
+            $data['image'] = $path;
         }
-
-        pdo_execute(
-            'UPDATE `product` SET `name` = ?, `price` = ?, `import_date` = ?, `category_id` = ?, `description` = ? WHERE `product_id` = ?',
-            [$data['product_name'], $data['price'], $data['import_date'], $data['category_id'], $data['description'], $data['product_id']]
-        );
-
-        echo '<script>alert("Sửa sản phẩm thành công")</script>';
-        redirect('product');
     }
+
+    pdo_execute(
+        'UPDATE `product` SET `name` = ?, `price` = ?,`image` = ?, `import_date` = ?, `category_id` = ?, `description` = ? WHERE `product_id` = ?',
+        [$data['product_name'], $data['price'], $data['image'], $data['import_date'], $data['category_id'], $data['description'], $data['product_id']]
+    );
+
+    echo '<script>alert("Sửa sản phẩm thành công")</script>';
+    redirect('product');
 }
-0
 
 ?>
 
@@ -50,7 +47,7 @@ if (isset($_POST['edit'])) {
             <div class="form-group col">
                 <div class="form-control">
                     <label for="product_name">Tên Hàng hóa</label>
-                    <input type="text" id="product_name" name="product_name" class="form-input <?= isset($_SESSION['errors']['product_name']) ? "error" : "" ?>" placeholder="<?= $_SESSION['errors']['product_name'] ?? "" ?>" value=<?= $edit_product['name'] ?> required>
+                    <input type="text" id="product_name" name="product_name" class="form-input <?= isset($_SESSION['errors']['product_name']) ? "error" : "" ?>" placeholder="<?= $_SESSION['errors']['product_name'] ?? "" ?>" value='<?= $edit_product['name'] ?>' required>
                 </div>
             </div>
         </div>

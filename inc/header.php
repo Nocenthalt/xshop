@@ -41,7 +41,7 @@
                                     <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-2">
                                         <ul class="nav__list">
                                             <div class="nav__menu__user__avatar">
-                                                <img src="<?= $_SESSION['avatar'] ?? './content/img/default-' . rand(1, 4) . '.webp' ?>" class="img-fluid user-avatar" alt="User Avatar" />
+                                                <img src="<?= $_SESSION['avatar'] ?>" class="img-fluid user-avatar" alt="User Avatar" />
                                             </div>
                                             <div class="nav__menu__user__name">
                                                 <p><?= $_SESSION['username'] ?></p>
@@ -101,7 +101,7 @@
                             <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-1">
                                 <ul class="nav__list">
                                     <li class="nav__item">
-                                        <a href="#" class="nav__link nav__link--main block">Trang Chủ</a>
+                                        <a href="?page=home" class="nav__link nav__link--main block">Trang Chủ</a>
                                     </li>
                                     <li class="nav__item">
                                         <a href="#" class="nav__link nav__link--main block">Hỏi Đáp</a>

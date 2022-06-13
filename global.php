@@ -149,7 +149,7 @@ function validate_product($data)
     }
     if (empty($data['price'])) {
         $errors['price'] = 'Giá sản phẩm không được để trống';
-    } else if (!preg_match('/^\d+$/', $data['price'])) {
+    } else if (!preg_match('/^\d.+$/', $data['price'])) {
         $errors['price'] = 'Giá sản phẩm không hợp lệ';
     }
     if (empty($data['description'])) {

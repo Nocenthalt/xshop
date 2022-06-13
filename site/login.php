@@ -8,8 +8,9 @@ if (isset($_POST['login'])) {
     if ($user = validate_login($username, $password)) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
-        $_SESSION['avatar'] = $user['avatar'];
+        $_SESSION['avatar'] = $user['avatar'] != "" ? $user['avatar'] : './content/img/default-' . rand(1, 4) . '.webp';
         $_SESSION['identity'] = $user['identity'];
+
         header('Refresh: 2; URL=index.php?page=home');
         exit();
      

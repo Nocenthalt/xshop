@@ -174,13 +174,13 @@
 }
 
 .top-9-prod__item {
-  height: calc(250px / 2);
+  height: 160px;
   width: 100%;
 }
 
 .top-9-prod__item .hover-mask::after,
 .top-9-prod__img {
-  border-radius: 1rem;
+  border-radius: 10px;
   font-size: 0.95rem;
 }
 
@@ -227,7 +227,7 @@
 }
 
 .col-3-3 {
-  width: 70%;
+  width: 80%;
   margin-left: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;

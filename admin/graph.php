@@ -12,7 +12,7 @@ $comment = pdo_query('SELECT `category`.`name`,  COUNT(DISTINCT `content`) as co
         var product = <?php echo json_encode($product, JSON_HEX_TAG); ?>;
         var comment = <?php echo json_encode($comment, JSON_HEX_TAG); ?>;
     </script>
-    <div class="row">
+    <div class="row mx-auto">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">

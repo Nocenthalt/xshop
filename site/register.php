@@ -7,7 +7,7 @@ if(isset($_POST['register'])) {
         $data = input_clean($_POST);
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $data['birthdate'] = date('Y-m-d', strtotime($data['birthdate']));
-        $data['role'] = 0;
+        $data['role'] = false;
         $data['identity'] = $_SESSION['identity'];
         $data['avatar'] = '';
         $user = pdo_execute('INSERT INTO users (name, username, email, birthdate, password, role, identity, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
