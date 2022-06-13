@@ -17,7 +17,8 @@
     <link rel="stylesheet" type="text/css" href="./content/css/header.css" />
     <link rel="stylesheet" type="text/css" href="./content/css/footer.css" />
     <script src="https://kit.fontawesome.com/33c0badbf8.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="./content/js/header.js"></script>
 </head>
 

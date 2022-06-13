@@ -17,18 +17,17 @@
         return $data;
     }
 
-    function delete_customer    ($product_id)
+    function delete_customer($username)
 {
-    print_r($product_id);   
+    
     //if id is an array, use recursion
-    if (is_array($product_id)) {
-        foreach ($product_id as $id) {
+    if (is_array($username)) {
+        foreach ($username as $id) {
             delete_product($id);
         }
     } else {
-        $sql = "DELETE FROM `product` WHERE `product_id` = ?";
-       pdo_execute($sql, [$product_id]);
-       redirect('product');
+        $sql = "DELETE FROM `users` WHERE `username` = ?";
+       pdo_execute($sql, [$username]);
+       redirect('customer');
     }
 }
-?>

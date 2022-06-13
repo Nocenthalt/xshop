@@ -49,11 +49,11 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
 
                         <!-- add checkbox -->
                         <td>
-                            <input <?= in_array($comment['product_id'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $product['product_id'] ?>" onClick=" javascript:return submit()">
+                            <input <?= in_array($comment['id'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $comment['id'] ?>" onClick=" javascript:return submit()">
                         </td>
                         <td class="ta-center">
                             <form action="" method="post" class="delete-one">
-                                <input type="hidden" name="delete_one" value="<?= $comment['product_id'] ?>">
+                                <input type="hidden" name="delete_one" value="<?= $comment['id'] ?>">
                                 <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
                             </form>
                         </td>

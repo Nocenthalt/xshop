@@ -47,7 +47,7 @@
         } else {
             $sql = "DELETE FROM `comment` WHERE `id` = ?";
             pdo_execute($sql, [$comment_id]);
-            // redirect('comment');
+            redirect('comment');
         }
     }
 ?>

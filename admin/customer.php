@@ -7,6 +7,12 @@ $selected = $_POST['selected'] ?? null;
 $delete_selected = $_POST['delete_selected'] ?? false;
 $delete_one = $_POST['delete_one'] ?? false;
 
+if ($delete_one = $_POST['delete_one'] ?? false) {
+    delete_customer($delete_one);
+}
+if ($delete_selected = $_POST['delete_selected'] ?? false) {
+    delete_customer($selected);
+}
 ?>
 
 <div class="container">
@@ -49,7 +55,7 @@ $delete_one = $_POST['delete_one'] ?? false;
                         <!-- add checkbox -->
                         <?php if ($customer['role'] == 0) : ?>
                             <td>
-                                <input <?= in_array($customer['username'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $customer['id'] ?>" onClick=" javascript:return submit()">
+                                <input <?= in_array($customer['username'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $customer['username'] ?>" onClick=" javascript:return submit()">
                             </td>
                             <td class="ta-center">
                                 <a href="?page=edit-customer&username=<?= $customer['username'] ?>" class="btn btn--success">Sửa</a>
@@ -58,7 +64,7 @@ $delete_one = $_POST['delete_one'] ?? false;
                                     <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
                                 </form>
                             </td>
-                        <?php else: ?>
+                        <?php else : ?>
                             <td></td>
                             <td></td>
                         <?php endif ?>

@@ -5,14 +5,12 @@ $edit_id = $_GET['id'];
 $edit_category = get_category($edit_id)[0];
 
 if (isset($_POST['edit'])) {
-    if (!$_SESSION['errors'] = validate_category($_POST)) {
-        $data = input_clean($_POST);
+    $data = input_clean($_POST);
 
-        pdo_execute('UPDATE `category` SET `name` = ? WHERE `id` = ?', [$data['name'], $edit_id]);
+    pdo_execute('UPDATE `category` SET `name` = ? WHERE `id` = ?', [$data['name'], $edit_id]);
 
-        echo '<script>alert("Sửa thành công")</script>';
-        redirect('category');
-    }
+    echo '<script>alert("Sửa thành công")</script>';
+    redirect('category');
 }
 
 ?>
@@ -28,8 +26,7 @@ if (isset($_POST['edit'])) {
             </div>
             <div class="form-control">
                 <label for="name">Tên loại</label>
-                <input type="text" id="name" name="name" class="form-input <?= isset($_SESSION['errors']['name']) ? "error" : "" ?>" 
-                value="<?= $edit_category['name'] ?>">
+                <input type="text" id="name" name="name" class="form-input <?= isset($_SESSION['errors']['name']) ? "error" : "" ?>" value="<?= $edit_category['name'] ?>">
             </div>
             <button type="submit" class="btn btn--primary-o register-btn">Sửa loại hàng</button>
             <a href="?page=product" class="btn small"><i class="fas fa-chevron-left"></i> Quay lại</a>
