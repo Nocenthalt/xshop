@@ -87,8 +87,4 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
             </div>
         </table>
     </form>
-
-    <div class="table-tools">
-    </div>
-
 </div>

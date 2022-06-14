@@ -1,6 +1,5 @@
 <?php
 require './dao/product.php';
-add_view($_GET['id']);
 
 //query product with product_id = $_GET['id'] using pdo_query
 $product = pdo_query("SELECT * FROM `product` WHERE `product_id` = ?", [$_GET['id']]);
@@ -8,6 +7,10 @@ $comments = pdo_query("SELECT * FROM `comment` WHERE `product_id` = ? ORDER BY `
 $comments_count = count($comments);
 $top_9_prod = get_product(9, $_GET['category'] ?? '', 'view'); // lấy 10 sản phẩm có view lớn nhất
 
+//add view
+if(isset($_SESSION['username'])) {
+    add_view($_GET['id']);
+}
 if (isset($_POST['comment'])) {
     if (!isset($_SESSION['username'])) {
         echo '<script>alert("Bạn phải đăng nhập để bình luận!");</script>';
@@ -16,7 +19,7 @@ if (isset($_POST['comment'])) {
         $date = date('Y-m-d H:i:s');
         $username = $_SESSION['username'];
         $product_id = $_GET['id'];
-        pdo_query("INSERT INTO `comment` (`content`, `date`, `username`, `product_id`) VALUES (?, ?, ?, ?)", [$content, $date, $username, $product_id]);
+        pdo_query_once("INSERT INTO `comment` (`content`, `date`, `username`, `product_id`) VALUES (?, ?, ?, ?)", [$content, $date, $username, $product_id]);
         redirect('detail&id=' . $product_id . '&category=' . $_GET['category']);
     }
 }
@@ -30,7 +33,7 @@ if (isset($_POST['comment'])) {
         </div>
         <div class="product-hero__info theme--primary">
             <h1><?= $product[0]['name'] ?></h1></span>
-            <p class="product-hero__price"><?= $product[0]['price'] ?>₫</p>
+            <p class="product-hero__price">$<?= $product[0]['price'] ?></p>
             <p class="product-hero__id"> Mã: <?= $product[0]['product_id'] ?></p>
             <div class="product-hero__view">
                 <div data-tooltip="Lượt xem" class="product-hero__view-item tooltip">
