@@ -33,7 +33,7 @@ window.onload = function () {
         },
         title: {
           display: true,
-          text: "Tỉ lệ sản phẩm",
+          text: "Thống kê danh mục sản phẩm",
           fontSize: 20,
           fontColor: "black",
         },

@@ -87,7 +87,7 @@ if (isset($_POST['edit'])) {
         </div>
         <!-- return to product -->
 
-        <button type="submit" class="btn btn--primary-o register-btn">Sửa sản phẩm</button>
+        <button type="submit" class="btn btn--primary-o edit-btn">Sửa sản phẩm</button>
         <a href="?page=product" class="btn small"><i class="fas fa-chevron-left"></i> Quay lại</a>
 
     </form>

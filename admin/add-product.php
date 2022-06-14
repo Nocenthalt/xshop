@@ -89,7 +89,7 @@ if (isset($_POST['add-product'])) {
         <!-- return to product -->
 
         <div class="form-control form-submit">
-            <button type="submit" class="btn btn--primary-o register-btn">Thêm sản phẩm</button>
+            <button type="submit" class="btn btn--primary-o add-btn">Thêm sản phẩm</button>
         </div>
         <a href="?page=product" class="btn small"> Quay lại</a>
 

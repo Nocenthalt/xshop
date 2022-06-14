@@ -8,6 +8,13 @@ $selected = $_POST['selected'] ?? null;
 $delete_selected = $_POST['delete_selected'] ?? false;
 $delete_one = $_POST['delete_one'] ?? false;
 
+if ($delete_one = $_POST['delete_one'] ?? false) {
+    delete_category($delete_one);
+}
+if ($delete_selected = $_POST['delete_selected'] ?? false) {
+    delete_category($selected);
+}
+
 ?>
 
 <div class="container">

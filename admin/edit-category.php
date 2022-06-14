@@ -28,7 +28,7 @@ if (isset($_POST['edit'])) {
                 <label for="name">Tên loại</label>
                 <input type="text" id="name" name="name" class="form-input <?= isset($_SESSION['errors']['name']) ? "error" : "" ?>" value="<?= $edit_category['name'] ?>">
             </div>
-            <button type="submit" class="btn btn--primary-o register-btn">Sửa loại hàng</button>
+            <button type="submit" class="btn btn--primary-o edit-btn">Sửa loại hàng</button>
             <a href="?page=product" class="btn small"><i class="fas fa-chevron-left"></i> Quay lại</a>
         </div>
 </div>
