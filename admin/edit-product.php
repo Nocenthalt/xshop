@@ -59,7 +59,7 @@ if (isset($_POST['edit'])) {
                 </div>
                 <div class="form-control">
                     <label for="price">Đơn giá</label>
-                    <input type="number" id="price" name="price" class="form-input <?= isset($_SESSION['errors']['price']) ? "error" : "" ?>" placeholder="<?= $_SESSION['errors']['price'] ?? "" ?>" value=<?= $edit_product['price'] ?> required>
+                    <input type="number" step="0.01" id="price" name="price" class="form-input <?= isset($_SESSION['errors']['price']) ? "error" : "" ?>" placeholder="<?= $_SESSION['errors']['price'] ?? "" ?>" value=<?= $edit_product['price'] ?> required>
                 </div>
             </div>
             <div class="form-group">
