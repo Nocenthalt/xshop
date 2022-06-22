@@ -309,11 +309,13 @@
 }
 
 .form-filter {
+  grid-template-columns: .25fr 1fr;
+  margin-bottom: 1rem;
   justify-content: center;
   align-items: center;
 }
 
-.fa-search {
+.fa-search, .fa-sort {
   padding: 0 .5rem;
   font-size: 1.5rem;
   color: #c4c4c4;
@@ -371,4 +373,15 @@
 .pagination__link--active{
   background: var(--primary);
   color: white;
+}
+
+.prod-showcase__title {
+  margin-bottom: 2em;
+  text-transform: uppercase;
+  font-family: var(--font-main);
+}
+
+.form-sort {
+  outline: none;
+  border: none;
 }

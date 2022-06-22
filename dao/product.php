@@ -8,7 +8,7 @@ function get_product($limit = null, $cond = null, $order = null)
         $sql .=  " WHERE $cond";
     }
     if ($order) {
-        $sql .= " ORDER BY `$order` DESC";
+        $sql .= " ORDER BY $order";
     }
     if ($limit) {
         $sql .= " LIMIT $limit";
@@ -35,8 +35,8 @@ function delete_product($product_id)
         }
     } else {
         $sql = "DELETE FROM `product` WHERE `product_id` = ?";
-       pdo_execute($sql, [$product_id]);
-       redirect('product');
+        pdo_execute($sql, [$product_id]);
+        redirect('product');
     }
 }
 
@@ -55,5 +55,19 @@ function add_view($product_id)
         $sql = "UPDATE `product` SET `view` = `view` + 1 WHERE `product_id` = ?";
         pdo_execute($sql, [$product_id]);
     }
-   
+}
+
+function sort_label($sort_type = null)
+{
+    switch ($sort_type) {
+        case 'priceHigh':
+            return "price DESC";
+            break;
+        case 'priceLow':
+            return "price";
+            break;
+        default:
+            return "";
+            break;
+    }
 }

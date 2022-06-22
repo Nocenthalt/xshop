@@ -6,36 +6,11 @@ $top_10_prod = get_product(10, '', 'view'); // lấy 10 sản phẩm có view l�
 $total_prods_count = get_product_count(); // lấy tổng số sản phẩm
 
 $category_id = $_POST['category'] ?? 'all'; // lấy id của danh mục được chọn
-$search = $_POST['search'] ?? ''; // lấy từ khóa tìm kiếm
-$pageno =  $_POST['pageno'] ?? 1; // lấy số trang hiện tại
-
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
-$main_prods = $category_id == 'all' ? get_product($total_prods_count) : get_product($total_prods_count, "`category_id` = {$category_id}"); // lấy sản phẩm theo danh mục
-
-
-// Cập nhật số sản phẩm nếu thay đổi danh mục
-foreach ($categories as $category) {
-    if ($category['id'] == $category_id) {
-        $current_prods_count = $category['count'];
-    }
-}
-
-// Tìm kiếm tên sản phẩm
-if ($search != '') {
-    $main_prods =  array_filter($main_prods, function ($prod) use ($search) {
-        $clean_target = strtolower($prod['name']);
-        $clean_search = trim(strtolower($search));
-
-        return strpos($clean_target, $clean_search) !== false;
-    });
-}
-
-// Phân trang
-$prods_per_page = 12; // số sản phẩm trên một trang
-$total_prods = count($main_prods); // tổng số sản phẩm
-$offset = ($pageno - 1) * $prods_per_page; // vị trí bắt đầu lấy sản phẩm
-$total_pages = ceil($total_prods / $prods_per_page); // tổng số trang
-$display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản phẩm hiển thị trên một trang
+$search = $_POST['search'] ?? false;
+$sort = $_POST['sort'] ?? false;
+$products = $category_id == 'all' ? get_product($total_prods_count, "", sort_label($sort)) : get_product($total_prods_count, "`category_id` = {$category_id}", sort_label($sort));
+[$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $search, $products);
 
 
 ?>
@@ -109,11 +84,21 @@ $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản ph
                             </div>
                         <?php } ?>
                         <div class="divider divider-50"></div>
-                        <div class="form-filter flex">
+                        <div class="form-filter grid">
                             <button>
                                 <i class="fas fa-search"></i>
                             </button>
                             <input type="text" name="search" class="form-control form-filter__input" placeholder="Tìm kiếm sản phẩm">
+                        </div>
+                        <div class="form-filter grid">
+                            <button>
+                                <i class="fas fa-sort"></i>
+                            </button>
+                            <select name="sort" id="sort" class="form-control form-filter__input form-sort">
+                                <option value=""></option>
+                                <option value="priceHigh">Giá cao đến thấp</option>
+                                <option value="priceLow">Giá thấp đến cao</option>
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -135,9 +120,14 @@ $display_prods = array_slice($main_prods, $offset, $prods_per_page); // sản ph
                 <!-- end top 10 product list -->
             </aside>
             <section class="col">
+                <div class="title prod-showcase__title">
+                    <h1>
+                        Sản phẩm
+                    </h1>
+                </div>
                 <div class="prod-showcase grid">
                     <!-- main product showcase  -->
-                    <?php foreach ($display_prods as $prod) { ?>
+                    <?php foreach ($filtered_items as $prod) { ?>
                         <div class="prod-item">
                             <a href="?page=detail&id=<?= $prod["product_id"] ?>&category=<?= $prod["category_id"] ?>" class="prod-link">
                                 <h3 class="prod-item__name truncate theme--dark"><?= $prod["name"] ?></h3>

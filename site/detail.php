@@ -1,7 +1,6 @@
 <?php
 require './dao/product.php';
 
-//query product with product_id = $_GET['id'] using pdo_query
 $product = pdo_query("SELECT * FROM `product` WHERE `product_id` = ?", [$_GET['id']]);
 $comments = pdo_query("SELECT * FROM `comment` WHERE `product_id` = ? ORDER BY `date` DESC", [$_GET['id']]);
 $comments_count = count($comments);
