@@ -1,12 +1,12 @@
 window.onload = function () {
+  let isDetail = false;
   const ctx = document.getElementById("product_chart").getContext("2d");
   const ctx_2 = document.getElementById("popularity_chart").getContext("2d");
   let labels = _.map(data, "name");
   let category_count = _.map(data, "count");
-  let category_view = _.map(product, "view");
-  let comment_count = _.map(_.merge(comment, product), "comment_count");
+  let category_view = _.map(categoryView, "view");
+  let comment_count = _.map(_.merge(comment, categoryView), "comment_count");
   comment_count = Array.from(comment_count, (item) => item || "0");
-
   let pieColors = _.times(data.length, randomHSL);
   let pie_config = {
     type: "pie",
@@ -105,6 +105,21 @@ window.onload = function () {
   };
   const pieChart = new Chart(ctx, pie_config);
   const mixedChart = new Chart(ctx_2, mixed_config);
+
+  //doi du lieu
+  let detail = document.querySelector(".detail");
+  let product_detail = (product = _.dropRight(
+    product,
+    product.length - categoryView.length
+  ));
+  
+  detail.addEventListener("click", function () {
+    updateData(
+      mixedChart,
+      _.map(product_detail, "name"),
+      _.map(product_detail, "view")
+    );
+  });
 };
 
 function randomHSL() {
@@ -112,4 +127,17 @@ function randomHSL() {
   var s = Math.floor(_.random(20, 100));
   var l = 85;
   return "hsl(" + h + "," + s + "%," + l + "%)";
+}
+
+function updateData(chart, label, data, isDetail = true) {
+  if (isDetail) {
+    chart.data.labels = label;
+    chart.data.datasets.data = data;
+    chart.update();
+  } else {
+    chart.data.labels = labels;
+    chart.data.datasets.data = category_view;
+    chart.update();
+  }
+  isDetail = !isDetail;
 }
