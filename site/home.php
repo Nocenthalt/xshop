@@ -1,8 +1,8 @@
 <?php
 require './dao/product.php';
 
-$top_4_prods = get_product(4, '', 'view'); // lấy 4 sản phẩm có view lớn nhất
-$top_10_prod = get_product(10, '', 'view'); // lấy 10 sản phẩm có view lớn nhất
+$top_4_prods = get_product(4, '', 'view DESC'); // lấy 4 sản phẩm có view lớn nhất
+$top_10_prods = get_product(10, '', 'view DESC'); // lấy 10 sản phẩm có view lớn nhất
 $total_prods_count = get_product_count(); // lấy tổng số sản phẩm
 
 $category_id = $_POST['category'] ?? 'all'; // lấy id của danh mục được chọn
@@ -108,7 +108,7 @@ $products = $category_id == 'all' ? get_product($total_prods_count, "", sort_lab
                 <div class="top-10-prod">
                     <h2 class="title">Top 10 ưa chuộng</h2>
                     <div class="top-10-prod__list col-2-2 grid ">
-                        <?php foreach ($top_10_prod as $product) { ?>
+                        <?php foreach ($top_10_prods as $product) { ?>
                             <div class="top-10-prod__item">
                                 <a href="?page=detail&id=<?= $product["product_id"] ?>&category=<?= $product["category_id"] ?>" class="hover-mask" data-content="<?= $product["name"] ?>">
                                     <img class="img-fluid top-10-prod__img" src="<?= $product["image"] ?>" alt="<?= $product["name"] ?>" />
