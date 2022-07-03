@@ -1,24 +1,6 @@
 <?php
 
-function get_product($limit = null, $cond = null, $order = null)
-{
-    $sql = "SELECT * FROM `product`";
-
-    if ($cond) {
-        $sql .=  " WHERE $cond";
-    }
-    if ($order) {
-        $sql .= " ORDER BY $order";
-    }
-    if ($limit) {
-        $sql .= " LIMIT $limit";
-    }
-    $data = pdo_query($sql);
-
-    return $data;
-}
-
-function get_product2()
+function get_product()
 {
     $sql = "SELECT `product`.*, COUNT(`view`.`username`) AS `view` FROM `product` LEFT JOIN `view` ON `product`.`product_id` = `view`.`product_id` GROUP BY `product`.`name`";
     $data = pdo_query($sql);
@@ -67,24 +49,11 @@ function get_view($product_id)
     return pdo_query_once($sql, [$product_id])["view"];
 }
 
-function sort_label($sort_type = null)
-{
-    switch ($sort_type) {
-        case 'priceHigh':
-            return "price DESC";
-            break;
-        case 'priceLow':
-            return "price";
-            break;
-        default:
-            return "";
-            break;
-    }
-}
 
 //sắp xếp sản phẩm
 function sort_product($products, $sortBy, $order = 0)
 {
+    if(!$sortBy) return $products;
     $col = array_column($products, $sortBy);
     array_multisort($col, ($order ? SORT_DESC : SORT_ASC), $products);
     return $products;

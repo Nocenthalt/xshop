@@ -1,19 +1,19 @@
 <?php
 require './dao/product.php';
 
-$popular_products = sort_product(get_product2(), "view", 1);
+$popular_products = sort_product(get_product(), "view", 1);
 $top_4_prods = truncate_product($popular_products, 4); // lấy 4 sản phẩm có nhiều view nhât
 $top_10_prods = truncate_product($popular_products, 10); // lấy 10 sản phẩm có nhiều view nhât
 $total_prods_count = get_product_count(); // lấy tổng số sản phẩm
-$category_id = $_POST['category'] ?? 'all'; // lấy id của danh mục được chọn
+$category_id = $_GET['category'] ?? 'all'; // lấy id của danh mục được chọn
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
 $search = $_POST['search'] ?? false;
-$sort = $_POST['sort'] ?? false;
-$products = $category_id == 'all' ? get_product2(): filter_product(get_product2(), "category_id", $category_id);
+$products = $category_id == 'all' ? get_product() : filter_product(get_product(), "category_id", $category_id);
+var_dump($_GET['sort']);
+[$sortBy, $order] = explode(" ", $_GET['sort']);
 [$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $search, $products);
+$filtered_items = sort_product($filtered_items, $sortBy, $order);
 
-$sa = get_product2(4);
-sort_product($sa,"view");
 ?>
 <div class="container">
     <div class="banner-container">
@@ -73,7 +73,7 @@ sort_product($sa,"view");
                     <h2 class="title">Danh mục</h2>
 
                     <!-- dùng form radio làm danh sách danh mục -->
-                    <form action="" method="POST" class="category-list">
+                    <form action="" method="GET" class="category-list">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="category" id="all" value="all" onclick="javascript: submit()" <?php echo $category_id == "all" ? "checked" : ""; ?>>
                             <label class="form-check-label" for="all">Tất cả - <span><?= $total_prods_count ?></span></label>
@@ -95,10 +95,10 @@ sort_product($sa,"view");
                             <button>
                                 <i class="fas fa-sort"></i>
                             </button>
-                            <select name="sort" id="sort" class="form-control form-filter__input form-sort">
-                                <option value=""></option>
-                                <option value="priceHigh">Giá cao đến thấp</option>
-                                <option value="priceLow">Giá thấp đến cao</option>
+                            <select name="sort" id="sort" class="form-control form-filter__input form-sort" onchange="javascript: submit()">
+                                <option value="0 0"></option>
+                                <option value="price 1">Giá cao đến thấp</option>
+                                <option value="price 0">Giá thấp đến cao</option>
                             </select>
                         </div>
                     </form>
