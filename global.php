@@ -100,6 +100,7 @@ function validate_register($data)
     }
 }
 
+// validate đăng nhập
 function validate_profile($data)
 {
     $data = input_clean($data);
@@ -137,6 +138,7 @@ function validate_profile($data)
     }
 }
 
+// validate sản phẩm
 function validate_product($data)
 {
     $data = input_clean($data);
@@ -166,6 +168,7 @@ function validate_product($data)
     }
 }
 
+// validate danh mục
 function validate_category($data)
 {
     $data = input_clean($data);
@@ -184,6 +187,7 @@ function validate_category($data)
     }
 }
 
+// chuyển trang
 function redirect($page)
 {
     $sec = 1;
@@ -191,6 +195,7 @@ function redirect($page)
     exit();
 }
 
+// rút gọn số
 function number_shorten($number)
 {
     if ($number >= 1000000) {
@@ -201,7 +206,7 @@ function number_shorten($number)
         return $number;
     }
 }
-
+    
 function pagination($pageno, $search = null, $total_items = [])
 {
     // Tìm kiếm tên sản phẩm

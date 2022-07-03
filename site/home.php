@@ -1,18 +1,19 @@
 <?php
 require './dao/product.php';
 
-$top_4_prods = get_product(4, '', 'view DESC'); // lấy 4 sản phẩm có view lớn nhất
-$top_10_prods = get_product(10, '', 'view DESC'); // lấy 10 sản phẩm có view lớn nhất
+$popular_products = sort_product(get_product2(), "view", 1);
+$top_4_prods = truncate_product($popular_products, 4); // lấy 4 sản phẩm có nhiều view nhât
+$top_10_prods = truncate_product($popular_products, 10); // lấy 10 sản phẩm có nhiều view nhât
 $total_prods_count = get_product_count(); // lấy tổng số sản phẩm
-
 $category_id = $_POST['category'] ?? 'all'; // lấy id của danh mục được chọn
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
 $search = $_POST['search'] ?? false;
 $sort = $_POST['sort'] ?? false;
-$products = $category_id == 'all' ? get_product($total_prods_count, "", sort_label($sort)) : get_product($total_prods_count, "`category_id` = {$category_id}", sort_label($sort));
+$products = $category_id == 'all' ? get_product2(): filter_product(get_product2(), "category_id", $category_id);
 [$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $search, $products);
 
-
+$sa = get_product2(4);
+sort_product($sa,"view");
 ?>
 <div class="container">
     <div class="banner-container">
@@ -128,14 +129,17 @@ $products = $category_id == 'all' ? get_product($total_prods_count, "", sort_lab
                 <div class="prod-showcase grid">
                     <!-- main product showcase  -->
                     <?php foreach ($filtered_items as $prod) { ?>
+                        <?php
+                        $view = get_view($prod["product_id"]);
+                        ?>
                         <div class="prod-item">
                             <a href="?page=detail&id=<?= $prod["product_id"] ?>&category=<?= $prod["category_id"] ?>" class="prod-link">
                                 <h3 class="prod-item__name truncate theme--dark"><?= $prod["name"] ?></h3>
                                 <div class="prod-item__img-wrapper">
                                     <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
-                                    <span class="prod-item__price"><?= $prod["price"] ?></span>
+                                    <span class="prod-item__price"><?= number_shorten($prod["price"]) ?></span>
                                     <i class="fas fa-eye prod-item__view">
-                                        <span><?= number_shorten($prod["view"]); ?></span>
+                                        <span><?= $view; ?></span>
                                     </i>
                                 </div>
                             </a>
