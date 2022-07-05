@@ -8,9 +8,9 @@ $total_prods_count = get_product_count(); // lấy tổng số sản phẩm
 $category_id = $_GET['category'] ?? 'all'; // lấy id của danh mục được chọn
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
 $search = $_POST['search'] ?? false;
+$sort = $_GET['sort'] ?? "0 0";
 $products = $category_id == 'all' ? get_product() : filter_product(get_product(), "category_id", $category_id);
-var_dump($_GET['sort']);
-[$sortBy, $order] = explode(" ", $_GET['sort']);
+[$sortBy, $order] = explode(" ", $sort);
 [$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $search, $products);
 $filtered_items = sort_product($filtered_items, $sortBy, $order);
 
@@ -96,7 +96,7 @@ $filtered_items = sort_product($filtered_items, $sortBy, $order);
                                 <i class="fas fa-sort"></i>
                             </button>
                             <select name="sort" id="sort" class="form-control form-filter__input form-sort" onchange="javascript: submit()">
-                                <option value="0 0"></option>
+                                <option value=""></option>
                                 <option value="price 1">Giá cao đến thấp</option>
                                 <option value="price 0">Giá thấp đến cao</option>
                             </select>
@@ -134,7 +134,9 @@ $filtered_items = sort_product($filtered_items, $sortBy, $order);
                         ?>
                         <div class="prod-item">
                             <a href="?page=detail&id=<?= $prod["product_id"] ?>&category=<?= $prod["category_id"] ?>" class="prod-link">
-                                <h3 class="prod-item__name truncate theme--dark"><?= $prod["name"] ?></h3>
+                                <div class="text-wrapper theme--dark">
+                                    <h3 class="prod-item__name truncate"><?= $prod["name"] ?></h3>
+                                </div>
                                 <div class="prod-item__img-wrapper">
                                     <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
                                     <span class="prod-item__price"><?= number_shorten($prod["price"]) ?></span>

@@ -143,7 +143,7 @@
 @keyframes tooltip {
   0% {
     background: transparent;
-    transform: scaleY(.9);
+    transform: scaleY(0.9);
   }
   100% {
     background: var(--primary);
@@ -168,7 +168,7 @@
 
 .prod-item {
   position: relative;
-  width: 300px;
+  width: 250px;
   max-height: 250px;
 }
 
@@ -180,11 +180,10 @@
 
 .prod-item__img {
   height: 250px;
-  max-width: 75%;
   border-radius: 0 0.75rem 0.75rem 0;
 }
 
-.prod-item__name {
+.text-wrapper {
   /* writing-mode: vertical-rl; */
 
   /* Quay ngang h3 */
@@ -197,21 +196,23 @@
   left: 0;
 
   padding: 0.5em;
-  width: 250px;
+  width: 100%;
   text-align: center;
+  overflow: hidden;
+  border: 0.5px solid transparent;
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.prod-item__name {
   letter-spacing: 3px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: bold;
   font-family: var(--font-main);
-
-  border-radius: 0 0 0.75rem 0.75rem;
 }
 
 .prod-item__view {
   position: absolute;
-
-  /* offset đi 75% width của .prod-item__img */
-  left: calc(75% - 3.75rem);
+  right: 5%;
   bottom: 1rem;
   font-size: 1.25rem;
 }
@@ -223,11 +224,10 @@
   top: -1rem;
 }
 
-
 .prod-item__price {
   position: absolute;
-  left: calc(75% - (25% + 0.25rem));
-  top: 1rem;
+  right: 5%;
+  top: 5%;
   font-size: 1.25rem;
   font-family: var(--font-secondary);
   font-weight: 700;
@@ -242,20 +242,82 @@
   color: var(--primary-700);
 }
 
+.prod-item::after {
+  content: "";
 
-.prod-item:hover .prod-item__img{
-  /* blur and darken image */
-  overflow: hidden;
-
-  filter: blur(.7px) brightness(0.7);
-  z-index: -1;
-  transition: all 0.3s ease-in-out;
-
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.prod-link:hover .prod-item__name {
-  color: white;
+.prod-item::after {
+  animation: leftSlideOut 0.35s ease-out;
+}
+.prod-item .prod-item__img {
+  animation: fadeOut 0.45s ease-out forwards;
+}
+.prod-item:hover .prod-item__img {
+  animation: fadeIn 0.45s ease-in forwards;
+}
+
+.prod-item:hover::after {
+  z-index: -1;
+  transform-origin: center left;
   background: var(--primary);
+  animation: leftSlideIn 0.35s ease-in;
+}
+
+@keyframes leftSlideIn {
+  from {
+    background: transparent;
+    transform: scaleX(0.15);
+  }
+  to {
+    background: var(--primary);
+    transform: scaleX(1);
+  }
+}
+
+@keyframes leftSlideOut {
+  from {
+    background: var(--primary);
+    transform: scaleX(1);
+  }
+  to {
+    background: transparent;
+    transform: scaleX(0.15);
+  }
+}
+@keyframes fadeIn {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    width: 0;
+    visibility: hidden;
+  }
+  to {
+    width: 100%;
+    visibility: visible;
+  }
+}
+
+.prod-link:hover .text-wrapper {
+  color: black;
+  border: 0.5px solid var(--primary);
+  background: white;
   transition: all 0.2s ease-in-out;
 }
 
@@ -297,7 +359,7 @@
   font-weight: bold;
 }
 
-.form-check-input[type="radio"]:checked + .form-check-label::before{
+.form-check-input[type="radio"]:checked + .form-check-label::before {
   content: "◆";
   position: absolute;
   left: -1.15rem;
@@ -309,14 +371,15 @@
 }
 
 .form-filter {
-  grid-template-columns: .25fr 1fr;
+  grid-template-columns: 0.25fr 1fr;
   margin-bottom: 1rem;
   justify-content: center;
   align-items: center;
 }
 
-.fa-search, .fa-sort {
-  padding: 0 .5rem;
+.fa-search,
+.fa-sort {
+  padding: 0 0.5rem;
   font-size: 1.5rem;
   color: #c4c4c4;
 }
@@ -331,26 +394,29 @@
   color: #000;
 }
 
-.form-filter__input:focus {
-  outline: none;
+.form-filter__input:focus,
+.form-filter__input:active,
+.form-filter__input:hover,
+.form-filter__input {
+  outline: 0;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
-.top-10-prod .title{
+.top-10-prod .title {
   margin-top: 7rem;
   margin-bottom: 4rem;
 }
 
 .top-10-prod__item {
-  height: calc(250px /2);
+  height: calc(250px / 2);
   width: 100%;
 }
 
 .top-10-prod__item .hover-mask::after,
 .top-10-prod__img {
   border-radius: 1rem;
-  font-size: .95rem;
+  font-size: 0.95rem;
 }
-
 
 .side-menu {
   max-width: 250px;
@@ -364,13 +430,12 @@
   gap: 1.5rem;
 }
 
-
 /* override style */
 .pagination__link {
-  border: .5px solid var(--line-500);
+  border: 0.5px solid var(--line-500);
 }
 
-.pagination__link--active{
+.pagination__link--active {
   background: var(--primary);
   color: white;
 }
