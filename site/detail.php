@@ -1,13 +1,17 @@
 <?php
 require './dao/product.php';
-
+require './dao/comment.php';
+$id = $_GET["id"] ?? 0;
+$category = $_GET['category'] ?? '';
 $product = pdo_query("SELECT * FROM `product` WHERE `product_id` = ?", [$_GET['id']]);
-$comments = pdo_query("SELECT * FROM `comment` WHERE `product_id` = ? ORDER BY `date` DESC", [$_GET['id']]);
-$comments_count = count($comments);
-$top_9_prod = get_product(9, $_GET['category'] ?? '', 'view'); // lấy 10 sản phẩm có view lớn nhất
+$comment = get_comment_count("`product_id` = {$id}");
+$comments = sort_comment(filter_comment(get_comment(), "product_id", $id), 'date', 1);
+
+$view = get_view($id);
+$top_9_prod = filter_product(get_product(), "category_id", $id);
 
 //add view
-if(isset($_SESSION['username'])) {
+if (isset($_SESSION['username'])) {
     add_view($_GET['id']);
 }
 if (isset($_POST['comment'])) {
@@ -40,7 +44,7 @@ if (isset($_POST['comment'])) {
                         <i class="fas fa-eye"></i>
                     </span>
                     <span class="product-hero__view-item-text">
-                        <?= number_shorten($product[0]['view']) ?>
+                        <?= number_shorten($view) ?>
                     </span>
                 </div>
                 <div data-tooltip="Lượt bình luận" class="product-hero__view-item tooltip">
@@ -48,7 +52,7 @@ if (isset($_POST['comment'])) {
                         <i class="fas fa-comment-alt"></i>
                     </span>
                     <span class="product-hero__view-item-text">
-                        <?= number_shorten($comments_count) ?>
+                        <?= number_shorten($comment) ?>
                     </span>
                 </div>
             </div>
@@ -63,7 +67,7 @@ if (isset($_POST['comment'])) {
     </main>
     <div class="other-section grid mx-auto">
         <div class="col comment-section">
-            <div class="title"> Bình luận: <span class="comment-count">(<?= number_shorten($comments_count) ?>)</span> </div>
+            <div class="title"> Bình luận: <span class="comment-count">(<?= number_shorten($comment) ?>)</span> </div>
             <div class="commit-section__content">
                 <form action="" METHOD="POST" class="commit-section__content__form grid mx-auto">
                     <input type="hidden" name="comment" value="true">
@@ -79,17 +83,17 @@ if (isset($_POST['comment'])) {
                 </form>
                 <div class="divider"></div>
                 <div class="product-comment">
-                    <?php foreach ($comments as $comment) {
-                        $user_avatar = pdo_query("SELECT `avatar` FROM `users` WHERE `username` = ?", [$comment['username']]);
+                    <?php foreach ($comments as $cmt) {
+                        $user_avatar = pdo_query("SELECT `avatar` FROM `users` WHERE `username` = ?", [$cmt['username']]);
                     ?>
                         <div class="product-comment__item grid">
                             <div class="product-comment__item-avatar">
                                 <img class="img-fluid" src="<?= $user_avatar[0]['avatar'] ?>" alt="">
                             </div>
                             <div class="product-comment__item-content">
-                                <p class="product-comment__item-name"><?= $comment['username'] ?> <span class="product-comment__item-date"> · <?= $comment['date'] ?></span></p>
+                                <p class="product-comment__item-name"><?= $cmt['username'] ?> <span class="product-comment__item-date"> · <?= $cmt['date'] ?></span></p>
 
-                                <div class="product-comment__item-comment"><?= $comment['content'] ?></div>
+                                <div class="product-comment__item-comment"><?= $cmt['content'] ?></div>
                             </div>
                         </div>
                     <?php } ?>

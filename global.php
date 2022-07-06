@@ -227,3 +227,29 @@ function pagination($pageno, $search = null, $total_items = [])
     $filtered_items = array_slice($total_items, $offset, $prods_per_page); // sản phẩm hiển thị trên một trang
     return [$pageno, $total_pages, $filtered_items];
 }
+
+// function cho item. Items phải là array 2D
+
+// lọc item
+function item_filter($items, $filterBy, $value)
+{
+    $result = array_filter($items, function ($item) use ($filterBy, $value) {
+        return ($item[$filterBy] == $value);
+    });
+    return $result;
+}
+
+//sắp xếp item,
+function item_sort($items, $sortBy, $order = 0)
+{
+    if(!$sortBy) return $items;
+    $col = array_column($items, $sortBy);
+    array_multisort($col, ($order ? SORT_DESC : SORT_ASC), $items);
+    return $items;
+}
+
+// cắt số lượng item
+function item_truncate($items, $no_items)
+{
+    return array_slice($items, 0, $no_items ?? count($items));
+}

@@ -1,9 +1,10 @@
 <?php
 require './dao/product.php';
+require './dao/comment.php';
 
-$popular_products = sort_product(get_product(), "view", 1);
-$top_4_prods = truncate_product($popular_products, 4); // lấy 4 sản phẩm có nhiều view nhât
-$top_10_prods = truncate_product($popular_products, 10); // lấy 10 sản phẩm có nhiều view nhât
+$popular_products = item_sort(get_product(), "view", 1);
+$top_4_prods = item_truncate($popular_products, 4); // lấy 4 sản phẩm có nhiều view nhât
+$top_10_prods = item_truncate($popular_products, 10); // lấy 10 sản phẩm có nhiều view nhât
 $total_prods_count = get_product_count(); // lấy tổng số sản phẩm
 $category_id = $_GET['category'] ?? 'all'; // lấy id của danh mục được chọn
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
@@ -11,8 +12,7 @@ $search = $_POST['search'] ?? false;
 $sort = $_GET['sort'] ?? "0 0";
 $products = $category_id == 'all' ? get_product() : filter_product(get_product(), "category_id", $category_id);
 [$sortBy, $order] = explode(" ", $sort);
-[$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $search, $products);
-$filtered_items = sort_product($filtered_items, $sortBy, $order);
+[$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $search, sort_product($products, $sortBy, $order));
 
 ?>
 <div class="container">
@@ -131,6 +131,7 @@ $filtered_items = sort_product($filtered_items, $sortBy, $order);
                     <?php foreach ($filtered_items as $prod) { ?>
                         <?php
                         $view = get_view($prod["product_id"]);
+                        $comment = get_comment_count("`product_id` = {$prod['product_id']}");
                         ?>
                         <div class="prod-item">
                             <a href="?page=detail&id=<?= $prod["product_id"] ?>&category=<?= $prod["category_id"] ?>" class="prod-link">
@@ -140,9 +141,20 @@ $filtered_items = sort_product($filtered_items, $sortBy, $order);
                                 <div class="prod-item__img-wrapper">
                                     <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
                                     <span class="prod-item__price"><?= number_shorten($prod["price"]) ?></span>
-                                    <i class="fas fa-eye prod-item__view">
-                                        <span><?= $view; ?></span>
-                                    </i>
+                                    <div class="widget">
+                                        <button class="cart-action"><i class="fas fa-cart-plus prod-item__cart prod-item__icon"></i></button>
+                                        <i class="fas fa-eye prod-item__view prod-item__icon">
+                                            <span><?= $view; ?></span>
+                                        </i>
+                                        <i class="fas fa-comment prod-item__comment prod-item__icon">
+                                            <span><?= $comment; ?></span>
+                                        </i>
+                                        <i class="fas fa-star prod-item__rating prod-item__icon">
+                                            <span>1</span>
+                                        </i>
+
+                                    </div>
+
                                 </div>
                             </a>
                         </div>
