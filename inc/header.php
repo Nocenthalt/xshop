@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vn">
-
 <head>
     <title>X-shop</title>
 

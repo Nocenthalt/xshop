@@ -10,6 +10,14 @@ $category_id = $_GET['category'] ?? 'all'; // lấy id của danh mục được
 $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`category_id`) AS count FROM `product` JOIN `category` ON `product`.`category_id` = `category`.`id` GROUP BY `category`.`name`, `category`.`id`'); // lấy danh sách loại hàng và số lượng
 $search = $_POST['search'] ?? false;
 $sort = $_GET['sort'] ?? "0 0";
+$cart = $_POST['cart-id'] ?? false;
+if ($cart) {
+    if (!isset($_SESSION['username'])) {
+        alert("Bạn cần phải đăng nhập để sử dụng chức năng này!");
+    } else {
+        $_SESSION['cart'][$cart] = array($_POST['cart-id'], intval($_POST['cart-amount']));
+    }
+}
 $products = $category_id == 'all' ? get_product() : filter_product(get_product(), "category_id", $category_id);
 [$sortBy, $order] = explode(" ", $sort);
 [$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $search, sort_product($products, $sortBy, $order));
@@ -142,7 +150,21 @@ $products = $category_id == 'all' ? get_product() : filter_product(get_product()
                                     <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
                                     <span class="prod-item__price"><?= number_shorten($prod["price"]) ?></span>
                                     <div class="widget">
-                                        <button class="cart-action"><i class="fas fa-cart-plus prod-item__cart prod-item__icon"></i></button>
+                                        <?php
+                                        $itemAmount = 1;
+                                        ?>
+                                        <form method="POST" class="cart-submit">
+                                            <div class="cart-popup popupFade hidden">
+                                                <span class="popup-decrease">-</span>
+                                                <span class="item-amount"><?= $itemAmount ?></span>
+                                                <span class="popup-increase">+</span>
+                                                <input type="hidden" name="cart-amount" value="<?= $itemAmount ?>">
+                                                <input type="hidden" name="cart-id" value=<?= $prod['product_id'] ?>">
+                                            </div>
+                                            <button class="cart-action"><i class="fas fa-cart-plus prod-item__cart prod-item__icon"></i></button>
+                                            <button class="cart-action__confirm hidden"></button>
+
+                                        </form>
                                         <i class="fas fa-eye prod-item__view prod-item__icon">
                                             <span><?= $view; ?></span>
                                         </i>
@@ -152,9 +174,7 @@ $products = $category_id == 'all' ? get_product() : filter_product(get_product()
                                         <i class="fas fa-star prod-item__rating prod-item__icon">
                                             <span>1</span>
                                         </i>
-
                                     </div>
-
                                 </div>
                             </a>
                         </div>

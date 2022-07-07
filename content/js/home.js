@@ -45,19 +45,20 @@ window.onload = function () {
   });
 
   let carts = document.querySelectorAll(".cart-action");
-  let productCard = document.querySelectorAll(".prod-item");
-  let isWidgetHidden = false;
+
   carts.forEach((cart) => {
     cart.addEventListener("click", cartAction);
   });
 
   function cartAction(e) {
     e.preventDefault();
-    let widgets = e.target.parentNode.parentNode;
+    e.target.style.transform = "scale(1.45) translate(5%)";
+    let cartBtn = e.target;
+    let widgets = e.target.parentNode.parentNode.parentNode; //I mean, why not?
+    let cartConfirmBtn = cartBtn.parentNode.nextElementSibling;
     let parentCard = widgets.parentNode;
 
-    e.target.style.transform = "scale(1.45) translateY(5%)";
-    // giấu các icon khác
+    // giấu các icon không khải giỏ hàng
     widgets.childNodes.forEach((item) => {
       if (item.className != "cart-action") {
         if (item.style) {
@@ -66,35 +67,35 @@ window.onload = function () {
       }
     });
 
-    let popupContainer = document.createElement("div");
-    let popupAmount = document.createElement("button");
-    let popupIncrease = document.createElement("span");
-    let popupDecrease = document.createElement("span");
-    let cardAmount = 1;
+    //bad code but too bothersome to fix.
+    // thêm nút điểu khiển số lượng muốn thêm vào giỏ hàng
+    let cartForm, cartIndicator;
+    widgets.childNodes.forEach((child) => {
+      if (child.classList) {
+        cartForm = child.classList.contains("cart-submit") ? child : cartForm;
+        cartForm.childNodes.forEach((c) => {
+          if (c.classList) {
+            cartIndicator = c.classList.contains("cart-popup")
+              ? c
+              : cartIndicator;
+          }
+        });
+      }
+    });
+    cartIndicator.classList.toggle("hidden");
+    let [decrease, amount, increase] = cartIndicator.children;
+    console.log(cartIndicator.children);
 
-    popupContainer.classList.add("cart-popup", "popupFade", "title-2");
-    popupAmount.innerHTML = cardAmount;
-    popupAmount.classList.add("btn", "title-2");
-
-    popupIncrease.innerHTML = "+";
-    popupDecrease.innerHTML = "-";
-    popupIncrease.className = "popup-increase";
-    popupDecrease.className = "popup-decrease";
-    popupContainer.append(popupDecrease, popupAmount, popupIncrease);
-    parentCard.append(popupContainer);
-
-    popupContainer.addEventListener("click", cartPopupHandler);
-
-    function cartPopupHandler(e) {
+    decrease.addEventListener("click", function (e) {
       e.preventDefault();
-      let classes = e.target.classList;
-      if (classes.contains("popup-increase")) {
-        popupAmount.innerHTML = ++cardAmount;
-      }
-      if (classes.contains("popup-decrease")) {
-        cardAmount = --cardAmount == 0 ? (cardAmount = 1) : cardAmount;
-        popupAmount.innerHTML = cardAmount;
-      }
-    }
+      amount.innerHTML = --amount.innerHTML || 1; //Min = 1
+    });
+    increase.addEventListener("click", function (e) {
+      e.preventDefault();
+      ++amount.innerHTML;
+    });
+
+    // Thêm nút xác nhận đặt hàng
+    cartConfirmBtn.classList.toggle("hidden");
   }
 };

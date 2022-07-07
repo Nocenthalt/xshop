@@ -195,6 +195,12 @@ function redirect($page)
     exit();
 }
 
+// báo lỗi
+function alert($message)
+{
+    echo "<script>alert('$message');</script>";
+}
+
 // rút gọn số
 function number_shorten($number)
 {
@@ -206,7 +212,7 @@ function number_shorten($number)
         return $number;
     }
 }
-    
+
 function pagination($pageno, $search = null, $total_items = [])
 {
     // Tìm kiếm tên sản phẩm
@@ -242,7 +248,7 @@ function item_filter($items, $filterBy, $value)
 //sắp xếp item,
 function item_sort($items, $sortBy, $order = 0)
 {
-    if(!$sortBy) return $items;
+    if (!$sortBy) return $items;
     $col = array_column($items, $sortBy);
     array_multisort($col, ($order ? SORT_DESC : SORT_ASC), $items);
     return $items;
