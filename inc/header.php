@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vn">
+
 <head>
     <title>X-shop</title>
 
@@ -58,7 +59,7 @@
                                     <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-2">
                                         <ul class="nav__list">
                                             <div class="nav__menu__user__avatar">
-                                            <img src="<?= $_SESSION['avatar'] ?? './content/img/default-' . rand(1, 4) . '.webp' ?>" class="img-fluid user-avatar" alt="User Avatar" />
+                                                <img src="<?= $_SESSION['avatar'] ?? './content/img/default-' . rand(1, 4) . '.webp' ?>" class="img-fluid user-avatar" alt="User Avatar" />
                                             </div>
                                             <div class="nav__menu__user__name">
                                                 <p><?= $_SESSION['username'] ?></p>
@@ -91,13 +92,34 @@
                                     </ul>
                                 </div>
                             <?php endif; ?>
-
+                        </div>
+                        <div class="wrapper">
+                            <?php
+                            $cart_total = count($_SESSION['cart'] ?? []);
+                            ?>
+                            <button data-collapse-toggle="mobile-menu" type="button" class="nav__btn btn btn--primary-a" aria-controls="mobile-menu" aria-expanded="false">
+                                <i class="fas fa-shopping-cart nav__btn__icon"><span class="amount"><?= $cart_total ?></span></i>
+                            </button>
+                            <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-1">
+                                <ul class="nav__list">
+                                    <?php if($cart_total): ?>
+                                    <?php foreach ($_SESSION['cart'] as $cart_item) : ?>
+                                        <li class="nav__item">
+                                            <p class="nav__link nav__link--main">
+                                                <span><?= $cart_item["amount"] ?> x </span>
+                                                <?= $cart_item["product_image"] ? $cart_item["product_image"] : $cart_item["product_name"] ?>
+                                            </p>
+                                        </li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
                         </div>
                         <div class="wrapper">
                             <button data-collapse-toggle="mobile-menu" type="button" class="nav__btn btn btn--primary-a" aria-controls="mobile-menu" aria-expanded="false">
                                 <i class="fas fa-bars nav__btn__icon"></i>
                             </button>
-                            <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-1">
+                            <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-3">
                                 <ul class="nav__list">
                                     <li class="nav__item">
                                         <a href="?page=home" class="nav__link nav__link--main block">Trang Chủ</a>

@@ -11,11 +11,20 @@ $categories = pdo_query('SELECT `category`.`name`, `category`.`id`, COUNT(`categ
 $search = $_POST['search'] ?? false;
 $sort = $_GET['sort'] ?? "0 0";
 $cart = $_POST['cart-id'] ?? false;
+
 if ($cart) {
     if (!isset($_SESSION['username'])) {
         alert("Bạn cần phải đăng nhập để sử dụng chức năng này!");
     } else {
-        $_SESSION['cart'][$cart] = array($_POST['cart-id'], intval($_POST['cart-amount']));
+        alert("Thêm vào giỏ hàng thành công!");
+        $_SESSION['cart'][$cart] = [
+            "id" => $_POST['cart-id'],
+            "user" => $_SESSION['username'],
+            "amount" => intval($_POST['cart-amount']),
+            "product_name" => $_POST['cart-name'],
+            "product_image" => $_POST['cart-image']
+        ];
+        redirect("home");
     }
 }
 $products = $category_id == 'all' ? get_product() : filter_product(get_product(), "category_id", $category_id);
@@ -159,9 +168,11 @@ $products = $category_id == 'all' ? get_product() : filter_product(get_product()
                                                 <span class="item-amount"><?= $itemAmount ?></span>
                                                 <span class="popup-increase">+</span>
                                                 <input type="hidden" name="cart-amount" value="<?= $itemAmount ?>">
-                                                <input type="hidden" name="cart-id" value=<?= $prod['product_id'] ?>">
+                                                <input type="hidden" name="cart-id" value="<?= $prod['product_id'] ?>">
+                                                <input type="hidden" name="cart-name" value="<?= $prod["name"] ?>">
+                                                <input type="hidden" name="cart-image" value="<?= $product["image"] ?>">
                                             </div>
-                                            <button class="cart-action"><i class="fas fa-cart-plus prod-item__cart prod-item__icon"></i></button>
+                                            <button class="cart-action"><i class="fas fa-shopping-cart prod-item__cart prod-item__icon"></i></button>
                                             <button class="cart-action__confirm hidden"></button>
 
                                         </form>

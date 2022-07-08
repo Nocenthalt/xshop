@@ -223,17 +223,17 @@
   z-index: 3;
   display: block;
   position: absolute;
-  left: 5%;
-  top: 5%;
-  width: 10%;
-  height: 10%;
+  left: 2.5%;
+  top: 2.5%;
+  width: 15%;
+  height: 15%;
 }
 
 .prod-item__cart {
   transition: all 0.5s cubic-bezier(0.46, -0.35, 0.44, 1.15);
   left: 5%;
   top: 6.5%;
-  height: 10%;
+  height: 5%;
 }
 .prod-item__view {
   right: 5%;

@@ -5,7 +5,6 @@ window.addEventListener("load", (event) => {
   btns.forEach((btn) => {
     btn.addEventListener("click", (event) => {
       let dropdown = event.target.nextElementSibling;
-      
       dropdowns.forEach((dd) => !dd.classList.contains("hidden") && (dd.id != dropdown.id) ? dd.classList.add("hidden") : null);
       dropdown.classList.toggle("hidden");
     });

@@ -53,10 +53,11 @@ window.onload = function () {
   function cartAction(e) {
     e.preventDefault();
     e.target.style.transform = "scale(1.45) translate(5%)";
+    e.target.classList.remove("fa-shopping-cart");
+    e.target.classList.add("fa-cart-plus");
     let cartBtn = e.target;
     let widgets = e.target.parentNode.parentNode.parentNode; //I mean, why not?
     let cartConfirmBtn = cartBtn.parentNode.nextElementSibling;
-    let parentCard = widgets.parentNode;
 
     // giấu các icon không khải giỏ hàng
     widgets.childNodes.forEach((item) => {
@@ -83,18 +84,18 @@ window.onload = function () {
       }
     });
     cartIndicator.classList.toggle("hidden");
-    let [decrease, amount, increase] = cartIndicator.children;
-    console.log(cartIndicator.children);
+    let [decrease, amount, increase, amountData] = cartIndicator.children;
 
     decrease.addEventListener("click", function (e) {
       e.preventDefault();
       amount.innerHTML = --amount.innerHTML || 1; //Min = 1
+      amountData.setAttribute("value", amount.innerHTML);
     });
     increase.addEventListener("click", function (e) {
       e.preventDefault();
       ++amount.innerHTML;
+      amountData.setAttribute("value", amount.innerHTML);
     });
-
     // Thêm nút xác nhận đặt hàng
     cartConfirmBtn.classList.toggle("hidden");
   }

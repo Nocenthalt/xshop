@@ -84,3 +84,17 @@
     top: 4rem;
   }
 }
+
+.fa-shopping-cart {
+  position: relative;
+}
+
+.amount {
+  color: var(--primary-100);
+  font-weight: light;
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  position: absolute;
+  top: -0.5rem;
+  left: calc(100% + 0.25rem);
+}

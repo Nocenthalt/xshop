@@ -18,9 +18,8 @@ if (isset($_SESSION['role'])) {
         }
     }
 }
+
 print_r($_SESSION);
-
-
 if (file_exists($path)) {
 ?>
     <!-- css -->
