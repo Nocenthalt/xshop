@@ -28,7 +28,7 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                     <th>Loại hàng</th>
                     <th>Số lượt xem</th>
                     <th>Số bình luận</th>
-                    <th>Ngày nhyyyyập</th>
+                    <th>Ngày nhập</th>
                     <th class="ta-center"></th>
                     <!-- search bar -->
                     <th>
