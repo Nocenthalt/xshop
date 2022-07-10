@@ -102,15 +102,24 @@
                             </button>
                             <div class="nav__dropdown fadeIn ts-2 hidden" id="dd-1">
                                 <ul class="nav__list">
-                                    <?php if($cart_total): ?>
-                                    <?php foreach ($_SESSION['cart'] as $cart_item) : ?>
-                                        <li class="nav__item">
-                                            <p class="nav__link nav__link--main">
-                                                <span><?= $cart_item["amount"] ?> x </span>
-                                                <?= $cart_item["product_image"] ? $cart_item["product_image"] : $cart_item["product_name"] ?>
-                                            </p>
-                                        </li>
-                                    <?php endforeach; ?>
+                                    <?php if ($cart_total) : ?>
+                                        <?php foreach ($_SESSION['cart'] as $cart_item) : ?>
+                                            <li class="nav__item">
+                                                <?php if (isset($cart_item["product_image"])) : ?>
+                                                    <div class="nav__link nav__link--main flex">
+                                                        <img class="thumbnail" src="<?= $cart_item["product_image"] ?>" alt="<?= $cart_item['product_name'] ?>">
+                                                        <p><?= $cart_item["product_name"] ?></p>
+                                                        <span>x <?= $cart_item["amount"] ?></span>
+                                                    </div>
+                                                <?php else : ?>
+                                                    <div class="nav__link nav__link--main flex">
+                                                        <img class="thumbnail" alt="<?= $cart_item['product_name'] ?>">
+                                                        <p><?= $cart_item['product_name'] ?></p>
+                                                        <span>x <?= $cart_item["amount"] ?></span>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
                             </div>

@@ -98,3 +98,10 @@
   top: -0.5rem;
   left: calc(100% + 0.25rem);
 }
+
+.thumbnail {
+  --size: 50px;
+  object-fit: cover;
+  width: var(--size);
+  height: var(--size);
+}

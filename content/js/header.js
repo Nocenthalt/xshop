@@ -9,4 +9,8 @@ window.addEventListener("load", (event) => {
       dropdown.classList.toggle("hidden");
     });
   });
+
+  let stack = function(n) {
+    
+  }
 });
