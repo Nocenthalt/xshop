@@ -1,10 +1,5 @@
-.admin-nav__container {
-  border-top: 1px solid var(--line-500);
-  justify-content: space-around;
-  text-align: center;
-}
-.admin-nav__item {
-  width: 100%;
+.container {
+  margin-left: 15rem;
 }
 
 .table {

@@ -12,14 +12,20 @@ if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] == '1') {
         //cho phép admin truy cập những trang của user/non-user
         if (in_array($page, ['logout', 'home', 'profile', 'detail'])) {
+            get_user_header();
+
             $path = "site/{$page}.php";
         } else {
+            get_admin_header();
+
             $path = "admin/{$page}.php";
         }
+    } else {
+        get_user_header();
     }
 }
 
-print_r($_SESSION);
+// print_r($_SESSION);
 if (file_exists($path)) {
 ?>
     <!-- css -->
