@@ -1,9 +1,13 @@
 .container {
-  margin-left: 15rem;
+  margin-left: 10rem;
+}
+
+#nav-toggle:checked ~ .container {
+  margin-left: 0rem;
 }
 
 .table {
-  width: 95vw;
+  width: 80vw;
   border-collapse: collapse;
   border-spacing: 0;
   text-align: left;

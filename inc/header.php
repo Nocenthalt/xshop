@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="./content/css/util.css" />
     <link rel="stylesheet" type="text/css" href="./content/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="./content/css/header.css" />
+
     <link rel="stylesheet" type="text/css" href="./content/css/footer.css" />
     <script src="https://kit.fontawesome.com/33c0badbf8.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>

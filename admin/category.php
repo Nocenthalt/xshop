@@ -1,7 +1,6 @@
 <?php
 require './dao/product.php';
 require './dao/category.php';
-require 'admin-header.php';
 
 [$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1,$_POST['search'] ?? "", get_all_category() );
 $selected = $_POST['selected'] ?? null;
