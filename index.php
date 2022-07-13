@@ -7,18 +7,19 @@ set_session();
 get_header();
 $page = $_GET['page'] ?? 'home';
 $path = "site/{$page}.php";
-
-if (isset($_SESSION['role'])) {
-    if ($_SESSION['role'] == '1') {
-        //cho phép admin truy cập những trang của user/non-user
-        if (in_array($page, ['logout', 'home', 'profile', 'detail'])) {
-            $path = "site/{$page}.php";
-        } else {
-            $path = "admin/{$page}.php";
-        }
+$role = $_SESSION['role'] ?? 0;
+if ($role && $role == '1') {
+    //cho phép admin truy cập những trang của user/non-user
+    if (in_array($page, ['logout', 'home', 'profile', 'detail'])) {
+        get_user_header();
+        $path = "site/{$page}.php";
+    } else {
+        get_admin_header();
+        $path = "admin/{$page}.php";
     }
+} else {
+    get_user_header();
 }
-
 
 if (file_exists($path)) {
 ?>

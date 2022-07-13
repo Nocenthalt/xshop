@@ -1,9 +1,28 @@
 <?php
 function get_header()
 {
-    $path_header = "inc/header.php";
-    if (file_exists($path_header)) {
-        require $path_header;
+    $header_meta = "inc/header.php";
+    if (file_exists($header_meta)) {
+        require $header_meta;
+    } else {
+        echo 'không tồn tại trang ngày';
+    }
+}
+function get_user_header()
+{
+    $user_header = "inc/user_header.php";
+    if (file_exists($user_header)) {
+        require $user_header;
+    } else {
+        echo 'không tồn tại trang ngày';
+    }
+}
+
+function get_admin_header()
+{
+    $admin_header = "inc/admin_header.php";
+    if (file_exists($admin_header)) {
+        require $admin_header;
     } else {
         echo 'không tồn tại trang ngày';
     }

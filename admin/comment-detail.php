@@ -1,6 +1,5 @@
 <?php
 require './dao/comment.php';
-require 'admin-header.php';
 
 $comment = get_comment("", "", "product_id = " . $_GET['id']);
 [$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $_POST['search'] ?? "", $comment);
