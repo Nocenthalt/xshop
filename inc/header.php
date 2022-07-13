@@ -121,6 +121,11 @@
                                             </li>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
+                                    <a href="?page=cart">
+                                        <li class="nav__link nav__link--main btn btn--primary">
+                                            Xem chi tiết giỏ hàng
+                                        </li>
+                                    </a>
                                 </ul>
                             </div>
                         </div>
