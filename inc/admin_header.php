@@ -1,28 +1,31 @@
+<?php 
+    $_SESSION['admin-page'] = $_GET[0];
+?>
 <link rel="stylesheet" type="text/css" href="./content/css/admin_header.css" />
 <input type="checkbox" id="nav-toggle">
 <header id="header">
     <div class="admin-sidebar">
         <div class="sidebar-logo">
-            <a href="?page=home" class="">
+            <a href="?page=home">
                 <img src="./content/img/logo.png" alt="Xshop Logo" />
             </a>
         </div>
         <div class="sidebar-menu">
             <ul>
                 <li class="sidebar__item">
-                    <a href="?page=product" class="active">Hàng Hóa</a>
+                    <a href="?page=product" class="sidebar__card" id="product" data-active='true'>Hàng Hóa</a>
                 </li>
                 <li class="sidebar__item">
-                    <a href="?page=category" class="">Loại Hàng</a>
+                    <a href="?page=category" class="sidebar__card" id="category" data-active='false'>Loại Hàng</a>
                 </li>
                 <li class="sidebar__item">
-                    <a href="?page=customer" class="">Khách Hàng</a>
+                    <a href="?page=customer" class="sidebar__card" id="customer" data-active='false'>Khách Hàng</a>
                 </li>
                 <li class="sidebar__item">
-                    <a href="?page=comment" class="">Bình Luận</a>
+                    <a href="?page=comment" class="sidebar__card" id="comment" data-active='false'>Bình Luận</a>
                 </li>
                 <li class="sidebar__item">
-                    <a href="?page=statistic" class="">Thống Kê</a>
+                    <a href="?page=statistic" class="sidebar__card" id="statistic" data-active='false'>Thống Kê</a>
                 </li>
             </ul>
         </div>
@@ -65,3 +68,4 @@
     </nav>
 
 </header>
+

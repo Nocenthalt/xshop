@@ -33,7 +33,7 @@
     color: white;
     background-color: var(--primary);
   
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-family: var(--font-main);
     font-weight: bold;
   }
@@ -143,4 +143,21 @@
     color: var(--primary-500);
     cursor: pointer;
     display: inline;  
+  }
+
+  .btn {
+    font-size: 0.8rem;
+  }
+
+  .btn--primary {
+    background-color: var(--primary-100);
+  }
+  
+  .btn--outline {
+    border: 1.5px solid var(--primary-100);
+    color: var(--primary-100);
+  }
+  
+  .btn--success {
+    background-color: var(--primary-100);
   }

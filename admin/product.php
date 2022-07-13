@@ -29,17 +29,7 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                     <th>Số bình luận</th>
                     <th>Ngày nhập</th>
                     <th class="ta-center"></th>
-                    <!-- search bar -->
-                    <th>
-                        <form method="post">
-                            <div class="form-filter flex">
-                                <button>
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <input type="text" name="search" class="form-control search-bar">
-                            </div>
-                        </form>
-                    </th>
+                    <th class="ta-center"></th>                    
                 </tr>
             </thead>
             <tbody>
@@ -49,38 +39,66 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                         <td><?= $product['name'] ?></td>
                         <td><?= $product['price'] ?></td>
                         <td><?= get_category($product['category_id'])[0]['name'] ?></td>
-                        <td><?= $product['view'] ?></td>
-                        <td><?= get_comment_count("product_id = {$product['product_id']}") ?></td>
+                        <td class="ta-center"><?= $product['view'] ?></td>
+                        <td class="ta-center"><?= get_comment_count("product_id = {$product['product_id']}") ?></td>
                         <td><?= $product['import_date'] ?></td>
                         <!-- add checkbox -->
-                        <td>
+                        <td class="extras">
                             <input <?= in_array($product['product_id'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $product['product_id'] ?>" onClick=" javascript:return submit()">
                         </td>
-                        <td class="ta-center">
-                            <a href="?page=detail&id=<?= $product['product_id'] ?>" class="btn btn--primary">Xem</a>
-                            <a href="?page=edit-product&id=<?= $product['product_id'] ?>" class="btn btn--success">Sửa</a>
-                            <form action="" method="post" class="delete-one">
-                                <input type="hidden" name="delete_one" value="<?= $product['product_id'] ?>">
-                                <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
-                            </form>
+                        <td class="ta-center extras">
+                            <div class="wrapper">
+                                <button data-collapse-toggle="mobile-menu" type="button" class="table__options_btn btn btn--primary-a" aria-controls="mobile-menu" aria-expanded="false">                                    
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="table__options_dropdown fadeIn ts-2 hidden">
+                                    <ul class="flex">
+                                        <li>
+                                            <a href="?page=detail&id=<?= $product['product_id'] ?>" class="btn btn--primary">Xem</a>
+                                        </li>
+                                        <li>
+                                            <a href="?page=edit-product&id=<?= $product['product_id'] ?>" class="btn btn--success">Sửa</a>
+                                        </li>
+                                        <li>
+                                            <form action="" method="post" class="delete-one">
+                                                <input type="hidden" name="delete_one" value="<?= $product['product_id'] ?>">
+                                                <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>
             </tbody>
             <div class="row flex mx-auto">
                 <div class="col table-tools__container">
+                    <div class="flex btn-tools">
                     <button class="btn btn--primary select_all" name="select_all" value="true">Chọn tất cả</button>
                     <button class="btn btn--outline deselect_all" name="select_all" value="false">Bỏ chọn tất cả</button>
                     <button name="delete_selected" value="true" class="btn btn--danger" onClick="javascript:return confirm('Bạn có muốn xóa các sản phẩm đã chọn?');">Xóa đã chọn</button>
                     <a href="?page=add-product" class="btn btn--success">Thêm mới</a>
-                </div>
-                <div class="col">
-                    <div class="pagination flex mx-auto">
+                    </div>
+                    <div class="flex non-btn-tools">
                         <form method="post">
-                            <button type="submit" name="pageno" value=<?= $pageno - 1 ?>><i class="fas fa-chevron-left"></i></button>
-                            <button type="submit" disabled class="pagination__link btn btn--primary-o" name="pageno" value=<?= $pageno ?>> <?= $pageno ?> </button>
-                            <button type="submit" name="pageno" value=<?= $pageno + 1 ?>><i class="fas fa-chevron-right"></i></button>
+                            <div class="form-filter flex">
+                                <button class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <input type="text" name="search" class="form-control search-bar" placeholder="Tìm Kiếm">
+                            </div>
                         </form>
+                    
+                        <div class="col">
+                            <div class="pagination flex mx-auto">
+                                <form method="post">
+                                    <button type="submit" name="pageno" value=<?= $pageno - 1 ?>><i class="fas fa-chevron-left"></i></button>
+                                    <button type="submit" disabled class="pagination__link btn btn--primary-o" name="pageno" value=<?= $pageno ?>> <?= $pageno ?> </button>
+                                    <button type="submit" name="pageno" value=<?= $pageno + 1 ?>><i class="fas fa-chevron-right"></i></button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

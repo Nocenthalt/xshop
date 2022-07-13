@@ -1,14 +1,12 @@
-.admin-nav__container {
-  border-top: 1px solid var(--line-500);
-  justify-content: space-around;
-  text-align: center;
+.container {
+  margin-left: 10rem;
 }
-.admin-nav__item {
-  width: 100%;
+
+#nav-toggle:checked ~ .container {
+  margin-left: 0rem;
 }
 
 .table {
-  width: 55vw;
   border-collapse: collapse;
   border-spacing: 0;
   text-align: left;
@@ -33,7 +31,7 @@
   color: white;
   background-color: var(--primary);
 
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-family: var(--font-main);
   font-weight: bold;
 }
@@ -43,7 +41,7 @@
 }
 
 .table th,
-.table td {
+.table td:not(.extras) {
   padding: 1.25em;
 }
 
@@ -51,21 +49,25 @@
   text-align: center;
 }
 
-.fa-search {
-  color: var(--primary-500);
+.ta-end {
+  text-align: end;
+}
 
+.search-btn {
   position: relative;
   left: 1.75rem;
-  /* color: var(--primary); */
+}
+
+.fa-search {
+  color: var(--primary-100);
 }
 
 .search-bar {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   outline: none;
-  border: none;
+  border: 1.5px solid var(--primary-100);
   border-radius: 10px;
   padding: 0.5rem 0 0.5rem 2rem;
   color: var(--primary-100);
@@ -111,17 +113,18 @@
 }
 
 .table-tools__container {
-  bottom: 0;
+  justify-content: space-between;
+  width: 88vw;
 }
 
-.table-tools__container > * {
+.btn-tools > *, .non-btn-tools > * {
   margin: 0 1rem;
 }
 
 .row {
     margin-top: 10rem;
     margin-bottom: 1.5rem;
-    width: 60vw;
+    width: 90vw;
 }
 .row,
 .table-tools__container {
@@ -129,12 +132,51 @@
   align-items: center;
 }
 
-.table-form {
+/* .table-form {
   margin: 5rem 0;
-}
+} */
 
 .delete-one {
   color: var(--primary-500);
   cursor: pointer;
   display: inline;  
 }
+
+.table__options_btn {
+  font-size: 1rem;
+  color: var(--primary);
+}
+.fa-ellipsis-v {
+  user-select: none;
+  pointer-events: none;
+}
+
+.btn {
+  font-size: 0.8rem;
+}
+
+.btn--primary {
+  background-color: var(--primary-100);
+}
+
+.btn--outline {
+  border: 1.5px solid var(--primary-100);
+  color: var(--primary-100);
+}
+
+.btn--success {
+  background-color: var(--primary-100);
+}
+
+.table__options_dropdown ul {
+  flex-direction: column;
+}
+
+.table__options_dropdown ul li {
+  margin-block: 0.8rem;
+}
+
+.col {
+  justify-self: flex-end;
+}
+
