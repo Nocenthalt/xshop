@@ -215,7 +215,7 @@
 
 .prod-item__icon:hover {
   transition: transform 0.25s cubic-bezier(0.46, -0.35, 0.44, 1.15);
-  text-shadow: 2px 1px 1px var(--line-500);
+  text-shadow: 2px 1px 1px var(--line-700);
   transform: rotate(5deg) scale(1.125);
 }
 
@@ -229,8 +229,11 @@
   height: 15%;
 }
 
+.widget > i {
+  transition: all 0.35s cubic-bezier(0.46, -0.35, 0.44, 1.15);
+}
 .prod-item__cart {
-  transition: all 0.5s cubic-bezier(0.46, -0.35, 0.44, 1.15);
+  transition: all 0.35s cubic-bezier(0.46, -0.35, 0.44, 1.15);
   left: 5%;
   top: 6.5%;
   height: 5%;
@@ -267,6 +270,7 @@
 }
 
 .prod-item:hover > * {
+  transition: color 250ms cubic-bezier(1, 0, 0, 1);
   color: var(--primary-700);
 }
 
@@ -284,43 +288,22 @@
 }
 
 .prod-item::after {
-  animation: leftSlideOut 0.35s ease-out;
+  transform-origin: center left;
+  animation: leftSlideOut 0.45s ease-out;
 }
 .prod-item .prod-item__img {
   animation: productFadeOut 0.45s ease-out forwards;
 }
-.prod-item:hover .prod-item__img {
-  animation: productFadeIn 0.45s ease-in forwards;
-}
+/* .prod-item:hover .prod-item__img {
+  animation: productFadeIn 0.45s ease-in forwards,
+} */
 
 .prod-item:hover::after {
   z-index: 1;
-  background: var(--primary);
   transform-origin: center left;
-  animation: leftSlideIn 0.35s ease-in forwards;
+  animation: leftSlideIn 0.45s ease-in forwards;
 }
 
-@keyframes leftSlideIn {
-  from {
-    background: transparent;
-    transform: scaleX(0.15);
-  }
-  to {
-    background: var(--primary);
-    transform: scaleX(1);
-  }
-}
-
-@keyframes leftSlideOut {
-  from {
-    background: var(--primary);
-    transform: scaleX(1);
-  }
-  to {
-    background: transparent;
-    transform: scaleX(0.15);
-  }
-}
 @keyframes productFadeIn {
   from {
     width: 100%;
@@ -342,45 +325,29 @@
   }
 }
 
-.cart-popup {
-  z-index: 2;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  font-size: 2rem;
-  font-family: var(--font-main);
-  font-weight: 700;
-  text-transform: uppercase;
-}
-.cart-popup > * {
-  padding: 0 1rem;
-}
-
-.cart-popup > *:hover {
-  transition: color 250ms cubic-bezier(1, 0, 0, 1);
-  color: var(--primary-100);
-}
-
-.popupFade {
-  text-align: center;
-  animation: popUpFadeIn 1.25s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  color: var(--primary-700);
-}
-
-@keyframes popUpFadeIn {
-  0% {
-    display: none;
+@keyframes leftSlideIn {
+  from {
+    color: black;
+    background: transparent;
+    transform: scaleX(0.15);
   }
-  10% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scaleX(0.35) skew(60deg);
+  to {
+    color: white;
+    background: #89b3cdbc;
+    transform: scaleX(1);
   }
-  100% {
-    opacity: 1;
-    display: block;
-    transform: translate(-50%, -50%) scaleX(1);
+}
+
+@keyframes leftSlideOut {
+  from {
+    color: white;
+    background: var(--primary);
+    transform: scaleX(1);
+  }
+  to {
+    color: black;
+    background: transparent;
+    transform: scaleX(0.15);
   }
 }
 

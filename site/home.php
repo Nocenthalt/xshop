@@ -17,13 +17,20 @@ if ($cart) {
         alert("Bạn cần phải đăng nhập để sử dụng chức năng này!");
     } else {
         alert("Thêm vào giỏ hàng thành công!");
-        $_SESSION['cart'][$cart] = [
-            "id" => $_POST['cart-id'],
-            "user" => $_SESSION['username'],
-            "amount" => intval($_POST['cart-amount']),
-            "product_name" => $_POST['cart-name'],
-            "product_image" => $_POST['cart-image']
-        ];
+        $added_product = $_SESSION['cart'][$cart] ?? false;
+        //nếu đã có trong giỏ hàng thì + thêm số lượng
+        if ($added_product) {
+            $_SESSION['cart'][$cart]['amount']++;
+        } else {
+            $_SESSION['cart'][$cart] = [
+                "id" => $_POST['cart-id'],
+                "user" => $_SESSION['username'],
+                "amount" => intval($_POST['cart-amount']),
+                "product_name" => $_POST['cart-name'],
+                "product_image" => $_POST['cart-image']
+            ];
+        }
+
         redirect("home");
     }
 }
@@ -71,10 +78,10 @@ $products = $category_id == 'all' ? get_product() : filter_product(get_product()
             </div>
             <div class="col col-2-2 grid">
                 <!-- top 4 products -->
-                <?php foreach ($top_4_prods as $product) { ?>
+                <?php foreach ($top_4_prods as $top_4_product) { ?>
                     <div class="top-4-prod">
-                        <a href="?page=detail&id=<?= $product["product_id"] ?>&category=<?= $product["category_id"] ?>" class="hover-mask" data-content="<?= $product["name"] ?>">
-                            <img class="img-fluid top-4-prod__img" src="<?= $product["image"] ?>" alt="<?= $product["name"] ?>" />
+                        <a href="?page=detail&id=<?= $top_4_product["product_id"] ?>&category=<?= $top_4_product["category_id"] ?>" class="hover-mask" data-content="<?= $top_4_product["name"] ?>">
+                            <img class="img-fluid top-4-prod__img" src="<?= $top_4_product["image"] ?>" alt="<?= $top_4_product["name"] ?>" />
                         </a>
                     </div>
                 <?php } ?>
@@ -126,10 +133,10 @@ $products = $category_id == 'all' ? get_product() : filter_product(get_product()
                 <div class="top-10-prod">
                     <h2 class="title">Top 10 ưa chuộng</h2>
                     <div class="top-10-prod__list col-2-2 grid ">
-                        <?php foreach ($top_10_prods as $product) { ?>
+                        <?php foreach ($top_10_prods as $top_10_product) { ?>
                             <div class="top-10-prod__item">
-                                <a href="?page=detail&id=<?= $product["product_id"] ?>&category=<?= $product["category_id"] ?>" class="hover-mask" data-content="<?= $product["name"] ?>">
-                                    <img class="img-fluid top-10-prod__img" src="<?= $product["image"] ?>" alt="<?= $product["name"] ?>" />
+                                <a href="?page=detail&id=<?= $top_10_product["product_id"] ?>&category=<?= $top_10_product["category_id"] ?>" class="hover-mask" data-content="<?= $top_10_product["name"] ?>">
+                                    <img class="img-fluid top-10-prod__img" src="<?= $top_10_product["image"] ?>" alt="<?= $top_10_product["name"] ?>" />
                                 </a>
                             </div>
                         <?php } ?>
@@ -149,6 +156,7 @@ $products = $category_id == 'all' ? get_product() : filter_product(get_product()
                         <?php
                         $view = get_view($prod["product_id"]);
                         $comment = get_comment_count("`product_id` = {$prod['product_id']}");
+                        $itemAmount = 1;
                         ?>
                         <div class="prod-item">
                             <a href="?page=detail&id=<?= $prod["product_id"] ?>&category=<?= $prod["category_id"] ?>" class="prod-link">
@@ -159,22 +167,13 @@ $products = $category_id == 'all' ? get_product() : filter_product(get_product()
                                     <img class="img-fluid prod-item__img" src="<?= $prod["image"] ?>" alt="" />
                                     <span class="prod-item__price"><?= number_shorten($prod["price"]) ?></span>
                                     <div class="widget">
-                                        <?php
-                                        $itemAmount = 1;
-                                        ?>
                                         <form method="POST" class="cart-submit">
-                                            <div class="cart-popup popupFade hidden">
-                                                <span class="popup-decrease">-</span>
-                                                <span class="item-amount"><?= $itemAmount ?></span>
-                                                <span class="popup-increase">+</span>
-                                                <input type="hidden" name="cart-amount" value="<?= $itemAmount ?>">
-                                                <input type="hidden" name="cart-id" value="<?= $prod['product_id'] ?>">
-                                                <input type="hidden" name="cart-name" value="<?= $prod["name"] ?>">
-                                                <input type="hidden" name="cart-image" value="<?= $product["image"] ?>">
-                                            </div>
+                                            <input type="hidden" name="cart-amount" value="<?= $itemAmount ?>">
+                                            <input type="hidden" name="cart-id" value="<?= $prod['product_id'] ?>">
+                                            <input type="hidden" name="cart-name" value="<?= $prod['name'] ?>">
+                                            <input type="hidden" name="cart-image" value="<?= $prod['image'] ?>">
                                             <button class="cart-action"><i class="fas fa-shopping-cart prod-item__cart prod-item__icon"></i></button>
                                             <button class="cart-action__confirm hidden"></button>
-
                                         </form>
                                         <i class="fas fa-eye prod-item__view prod-item__icon">
                                             <span><?= $view; ?></span>

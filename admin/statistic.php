@@ -1,7 +1,6 @@
 <?php
 require './dao/customer.php';
 require './dao/statistic.php';
-require 'admin-header.php';
 
 [$pageno, $total_pages, $filtered_items] = pagination($_POST['pageno'] ?? 1, $_POST['search'] ?? "", get_customer());
 $selected = $_POST['selected'] ?? null;
