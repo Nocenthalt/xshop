@@ -10,7 +10,7 @@ $path = "site/{$page}.php";
 $role = $_SESSION['role'] ?? 0;
 if ($role && $role == '1') {
     //cho phép admin truy cập những trang của user/non-user
-    if (in_array($page, ['logout', 'home', 'profile', 'detail'])) {
+    if (in_array($page, ['logout', 'home', 'profile', 'detail' ])) {
         get_user_header();
         $path = "site/{$page}.php";
     } else {
