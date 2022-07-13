@@ -77,7 +77,7 @@ $username;
                     <?php
                     $cart_total = count($_SESSION['cart'] ?? []);
                     ?>
-                    <!-- giấu icon giỏ hàng nếu là admin -->
+                    <!-- giấu icon giỏ hàng nếu không phải là user -->
                     <?php if ($role == 0) : ?>
                         <button data-collapse-toggle="mobile-menu" type="button" class="nav__btn btn btn--primary-a" aria-controls="mobile-menu" aria-expanded="false">
                             <i class="fas fa-shopping-cart nav__btn__icon"><span class="amount"><?= $cart_total ?></span></i>
