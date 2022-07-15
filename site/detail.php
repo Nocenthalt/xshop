@@ -30,7 +30,7 @@ if (isset($_POST['comment'])) {
 ?>
 
 <div class="container">
-    <main class="product-hero grid theme--primary-500 mx-auto">
+    <main class="product-hero grid mx-auto">
         <div class="product-hero__image">
             <img class="img-fluid" src="<?php echo $product[0]['image'] ?>" alt="">
         </div>

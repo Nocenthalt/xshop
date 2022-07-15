@@ -1,42 +1,55 @@
 <?php
-// validate login
-
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    
-    if ($user = validate_login($username, $password)) {
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
-        $_SESSION['avatar'] = $user['avatar'] != "" ? $user['avatar'] : './content/img/default-' . rand(1, 4) . '.webp';
-        $_SESSION['identity'] = $user['identity'];
-
-        header('Refresh: 2; URL=index.php?page=home');
-        exit();
-     
-    } else {
-        $_SESSION['errors'] = 'Tên đăng nhập hoặc mật khẩu không đúng';
-    }
-}
+$cart = $_SESSION['cart'] ?? null;
+var_dump($cart);
 
 ?>
 <div class="container">
-    <form action="" method="POST" class="form-signin flex mx-auto">
-        <input type="hidden" name="login" value="true">
-        <h2 class="form-signin-heading <?= $_SESSION['errors'] ? "error" : "" ?>"><?= $_SESSION['errors'] ? $_SESSION['errors'] : "Đăng nhập tài khoản" ?></h2>
-        <label for="inputUser" class="sr-only">Username</label>
-        <input type="text" id="inputUser" name="username" class="form-control__input" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="password" class="form-control__input" placeholder="Password" required>
-
-        <button class="btn  btn--primary-o login-btn" type="submit">Đăng nhập</button>
-        <div class="wrapper flex">
-            <div class="forgot">
-                <a href="#">Quên mật khẩu?</a>
+    <div class="title-container">
+        <h1 class="title">Thông tin giỏ hàng</h1>
+        <a href="?page=home" class="btn btn--primary-o home-redirect">
+            <i class="fas fa-chevron-left"></i>&nbsp; Tiếp tục mua hàng
+        </a>
+    </div>
+    <div class="shopping-cart__container">
+        <div class="row grid mx-auto">
+            <div class="col">
+                <main class="cart-display">
+                    <table class="table mx-auto">
+                        <thead class="border--line">
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($cart) : ?>
+                                <?php foreach ($cart as $item) : ?>
+                                    <tr>
+                                        <td>
+                                            <div class="grid item__detail">
+                                                <div class="item__detail__image">
+                                                    <img src="<?= $item['product_image'] ?>" class="img-fluid" alt="<?= $item['product_name'] ?>">
+                                                </div>
+                                                <div class="iitem__detail__name">
+                                                    <?= $item['product_name'] ?>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><?= $item['price'] ?></td>
+                                        <td><?= $item['amount'] ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </main>
             </div>
-            <label class="form-check flex">
-                <input type="checkbox" value="remember-me" class="remember-me"> Ghi nhớ đăng nhập
-            </label>
+            <div class="col">
+                <aside class="border--line">
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo unde voluptates quasi, nemo reiciendis, magni praesentium, sit ipsam quidem sint non recusandae dolorum a excepturi modi tenetur deleniti! Asperiores reiciendis accusamus est iste ad delectus veniam vero inventore quas quasi sed, eius aliquid ipsum omnis vitae facere eos quo pariatur!</p>
+                </aside>
+            </div>
         </div>
-    </form>
+    </div>
 </div>

@@ -105,8 +105,8 @@ $username;
                                 <?php endforeach; ?>
                             <?php endif; ?>
                             <a href="?page=cart">
-                                <li class="nav__link nav__link--main btn btn--primary">
-                                    Xem chi tiết giỏ hàng
+                                <li class="nav__link nav__link--main btn btn--primary cart-detail">
+                                    Xem chi tiết giỏ hàng &nbsp<i class="fas fa-chevron-right"></i>
                                 </li>
                             </a>
                         </ul>

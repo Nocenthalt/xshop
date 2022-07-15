@@ -89,7 +89,6 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                                 <input type="text" name="search" class="form-control search-bar" placeholder="Tìm Kiếm">
                             </div>
                         </form>
-                    
                         <div class="col">
                             <div class="pagination flex mx-auto">
                                 <form method="post">

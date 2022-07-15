@@ -3,7 +3,7 @@ require './dao/category.php';
 require './dao/product.php';
 
 $edit_id = $_GET['id'];
-$edit_product = get_product("", "product_id = $edit_id")[0];
+$edit_product = reset(item_filter(get_product(), "product_id", $edit_id));
 $category = get_all_category();
 
 if (isset($_POST['edit'])) {
@@ -81,7 +81,7 @@ if (isset($_POST['edit'])) {
                 </div>
                 <div class="form-control">
                     <label for="description">Mô tả</label>
-                    <textarea name="description" id="description" cols="30" rows="10" class="form-input form-desc <?= isset($_SESSION['errors']['description']) ? "error" : "" ?>" placeholder="<?= $_SESSION['errors']['description'] ?? "" ?>"> <?= $edit_product['description'] ?></textarea>
+                    <textarea name="description" id="description" cols="30" rows="10" class="form-input form-desc <?= isset($_SESSION['errors']['description']) ? "error" : "" ?>" placeholder="<?= $_SESSION['errors']['description'] ?? "" ?>"></textarea>
                 </div>
             </div>
         </div>

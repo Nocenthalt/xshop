@@ -22,7 +22,6 @@ if (isset($_POST['update'])) {
         );
     }
     echo "<script> alert('Cập nhật thành cống!') <script>";
-
     redirect('profile');
 }
 
@@ -30,7 +29,6 @@ if (isset($_POST['update'])) {
 ?>
 
 <div class="container">
-
     <form action="" method="POST" class="form-update mx-auto" enctype="multipart/form-data">
         <input type="hidden" name="update" value="true">
         <h2 class="form-update-heading <?= $_SESSION['errors'] ? "error" : "" ?>"><?= $_SESSION['errors'] ? 'Lỗi' : "Cập nhật tài khoản" ?></h2>
@@ -64,7 +62,6 @@ if (isset($_POST['update'])) {
                     <option value="" class="disabled"></option>
                     <?php foreach ($genders as $gender) : ?>
                         <option value=<?= $gender ?> <?= $gender == $user['gender'] ? 'selected' : '' ?>> <?= $gender ?> </option>
-
                     <?php endforeach ?>
                 </select>
             </div>
