@@ -15,7 +15,17 @@ window.onload = function () {
         checkboxes[i].checked = true;
       }
     });
-  
+    let btns = document.querySelectorAll(".table__options_btn");
+    let dropdowns = document.querySelectorAll(".table__options_dropdown");
+    
+    
+    btns.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        let dropdown = event.target.nextElementSibling;
+        dropdown.classList.toggle("hidden");
+      });
+    });
+    
   };
   
   

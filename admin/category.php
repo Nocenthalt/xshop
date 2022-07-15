@@ -26,17 +26,7 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                     <th>Tên loại</th>
                     <th>Số lượng hàng hóa</th>
                     <th class="ta-center"></th>
-                    <!-- search bar -->
-                    <th>
-                        <form method="post">
-                            <div class="form-filter flex">
-                                <button>
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <input type="text" name="search" class="form-control search-bar">
-                            </div>
-                        </form>
-                    </th>
+                    <th class="ta-center"></th>
                 </tr>
             </thead>
             <tbody>
@@ -44,33 +34,60 @@ if ($delete_selected = $_POST['delete_selected'] ?? false) {
                     <tr>
                         <td><?= $category['id'] ?></td>
                         <td><?= $category['name'] ?></td>
-                        <td><?= get_category_count($category['id']) ?></td>
+                        <td class="ta-center"><?= get_category_count($category['id']) ?></td>
                         <!-- add checkbox -->
-                        <td>
+                        <td class="extras">
                             <input <?= in_array($category['id'], $selected ?? []) ? 'checked' : '' ?> type="checkbox" name="selected[]" class="selected" value="<?= $category['id'] ?>" onClick=" javascript:return submit()">
                         </td>
-                        <td class="ta-center">
-                            <a href="?page=edit-category&id=<?= $category['id'] ?>" class="btn btn--success">Sửa</a>
-                            <form action="" method="post" class="delete-one">
-                                <input type="hidden" name="delete_one" value="<?= $category['id'] ?>">
-                                <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
-                            </form>
+                        <td class="ta-center extras">
+                            <div class="wrapper">
+                                <button data-collapse-toggle="mobile-menu" type="button" class="table__options_btn btn btn--primary-a" aria-controls="mobile-menu" aria-expanded="false">                                    
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            <div class="table__options_dropdown fadeIn ts-2 hidden">
+                                <ul class="flex">
+                                    <li>                            
+                                        <a href="?page=edit-category&id=<?= $category['id'] ?>" class="btn btn--success">Sửa</a>
+                                    </li>
+                                    <li>
+                                        <form action="" method="post" class="delete-one">
+                                            <input type="hidden" name="delete_one" value="<?= $category['id'] ?>">
+                                            <button type="submit" href="#" class="btn btn--danger select" onClick="javascript:return confirm('Bạn có muốn xóa sản phẩm này?')">Xóa</a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>
             </tbody>
             <div class="row flex mx-auto">
                 <div class="col table-tools__container">
+                    <div class="flex btn-tools">
                     <button class="btn btn--primary select_all" name="select_all" value="true">Chọn tất cả</button>
                     <button class="btn btn--outline deselect_all" name="select_all" value="false">Bỏ chọn tất cả</button>
                     <button name="delete_selected" value="true" class="btn btn--danger" onClick="javascript:return confirm('Bạn có muốn xóa các sản phẩm đã chọn?');">Xóa đã chọn</button>
-                    <a href="?page=add-category" class="btn btn--success">Thêm mới</a>
-                    <div class="pagination flex mx-auto">
+                    <a href="?page=add-product" class="btn btn--success">Thêm mới</a>
+                    </div>
+                    <div class="flex non-btn-tools">
                         <form method="post">
-                            <button type="submit" name="pageno" value=<?= $pageno - 1 ?>><i class="fas fa-chevron-left"></i></button>
-                            <button type="submit" disabled class="pagination__link btn btn--primary-o" name="pageno" value=<?= $pageno ?>> <?= $pageno ?> </button>
-                            <button type="submit" name="pageno" value=<?= $pageno + 1 ?>><i class="fas fa-chevron-right"></i></button>
+                            <div class="form-filter flex">
+                                <button class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <input type="text" name="search" class="form-control search-bar" placeholder="Tìm Kiếm">
+                            </div>
                         </form>
+                    
+                        <div class="col">
+                            <div class="pagination flex mx-auto">
+                                <form method="post">
+                                    <button type="submit" name="pageno" value=<?= $pageno - 1 ?>><i class="fas fa-chevron-left"></i></button>
+                                    <button type="submit" disabled class="pagination__link btn btn--primary-o" name="pageno" value=<?= $pageno ?>> <?= $pageno ?> </button>
+                                    <button type="submit" name="pageno" value=<?= $pageno + 1 ?>><i class="fas fa-chevron-right"></i></button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
